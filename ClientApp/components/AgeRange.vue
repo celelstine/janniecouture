@@ -1,0 +1,23 @@
+﻿<template>
+    <div>
+        <select class="w3-input w3-margin-bottom">
+            <option value=0> Select the category of Cards </option>
+            <option v-for="ageRange in ageRanges"
+                    v-bind:key="ageRange.ageRangeId"
+                    v-bind:value="ageRange.ageRangeId">
+                {{ ageRange.name }}
+            </option>
+        </select>
+        <router-view />
+    </div>
+</template>
+<script>
+import { mapGetters, mapActions } from 'vuex';
+
+export default {
+    computed: mapGetters(['ageRanges']),
+    created () {
+      return this.$store.dispatch('fetchAgeRange')
+    }
+}
+</script>

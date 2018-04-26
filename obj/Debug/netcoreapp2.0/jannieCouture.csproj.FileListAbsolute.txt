@@ -1,0 +1,12 @@
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/bin/Debug/netcoreapp2.0/jannieCouture.deps.json
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/bin/Debug/netcoreapp2.0/jannieCouture.runtimeconfig.json
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/bin/Debug/netcoreapp2.0/jannieCouture.runtimeconfig.dev.json
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/bin/Debug/netcoreapp2.0/jannieCouture.dll
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/bin/Debug/netcoreapp2.0/jannieCouture.pdb
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/obj/Debug/netcoreapp2.0/jannieCouture.csproj.CoreCompileInputs.cache
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/obj/Debug/netcoreapp2.0/jannieCouture.AssemblyInfoInputs.cache
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/obj/Debug/netcoreapp2.0/jannieCouture.AssemblyInfo.cs
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/obj/Debug/netcoreapp2.0/jannieCouture.dll
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/obj/Debug/netcoreapp2.0/jannieCouture.pdb
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/obj/Debug/netcoreapp2.0/jannieCouture.csprojResolveAssemblyReference.cache
+/Users/andeladeveloper/Projects/jannieCouture/jannieCouture/bin/Debug/netcoreapp2.0/libe_sqlite3.dylib

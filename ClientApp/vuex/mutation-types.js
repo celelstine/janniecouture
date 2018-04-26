@@ -1,0 +1,3 @@
+﻿export const PROCESSING_REQUEST = 'PROCESSING_REQUEST';
+export const FECTH_AGERANGE = 'FECTH_AGERANGE';
+export const ERROR = 'ERROR';
