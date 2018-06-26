@@ -1,0 +1,87 @@
+﻿<template>
+    <footer class="page-footer font-small blue pt-4 mt-4">
+        <!--Footer Links-->
+        <div class="container-fluid text-center text-md-left mb-2">
+            <div class="row">
+                <!--First column-->
+                <div class="col-md-4">
+                    <h6 class="text-uppercase">Important Links</h6>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Terms and Condition</a>
+                        </li>
+                        <li>
+                            <a href="#!">Return and Refund Policy</a>
+                        </li>
+                        <li>
+                            <a href="#!"> We are Hiring</a>
+                        </li>
+                        <li>
+                            <a href="#!">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.First column-->
+                <!--Second column-->
+                <div class="col-md-3">
+                    <h6 class="text-uppercase">Our Social Media</h6>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!"><i class="fab fa-facebook mr-3"> </i> JannieCouture</a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="fab fa-twitter mr-3"> </i>JannieCouture</a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="fab fa-instagram mr-3"></i>JannieCouture</a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="fab fa-linkedin-in mr-3"></i>JannieCouture</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.Second column-->
+                <div class="col-md-4 col-lg-5">
+                    <h6 class="text-uppercase font-weight-bold">Address</h6>
+                    <!--Info-->
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="fa fa-home mr-3"></i> House no 8, Tarka close, Phase 3, Kubwa, FCT
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope mr-3"></i> info@janniecouture.com
+                        </li>
+                        <li>
+                            <i class="fa fa-phone mr-3"></i>  + 234 806 611 2787
+                        </li>
+                        <li>
+                            <i class="fab fa-whatsapp mr-3"></i> + 234 703 295 5135
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--/.Footer Links-->
+        <!--Copyright-->
+        <div class="footer-copyright py-1 text-center">
+            © 2018 Copyright:
+            <a href="mailto:okorocelestine@gmail.com"> Okoro Celestine </a>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+</template>
+<style>
+    footer {
+        background: #e9ecef;
+    }
+    .footer-copyright{
+        background: #153466;
+        color: white
+    }
+    .footer-copyright > a {
+        color: white
+    }
+    .list-unstyled{
+        color: #007bff;
+    }
+</style>

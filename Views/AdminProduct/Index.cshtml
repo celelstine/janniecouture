@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container">
+	<!--<div class="col-md-6 col-lg-6 col-xs-12">
+        @Html.Raw(Model.Api.UrlImgUp.BuildImageTag("sample.jpg", new CloudinaryDotNet.StringDictionary("alt=Sample Image")))
+	</div>-->
+    <div class="col-md-6 col-lg-6 col-xs-12">
+        @Html.Raw(Model.Api.UrlImgUp.Transform(new CloudinaryDotNet.Transformation().Width(100).Height(150).Crop("fill")).BuildImageTag("sample.jpg"))
+	</div>
+	<div id='backend_upload'>
+    <h1>Upload through your server</h1>
+
+    @using (Html.BeginForm("UploadServer", "AdminProduct", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input id="fileupload" type="file" name="files" multiple accept="image/gif, image/jpeg, image/png">
+        <input type="submit" value="Upload">
+    }
+</div>
+</div>
+    
