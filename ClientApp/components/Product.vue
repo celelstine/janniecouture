@@ -1,14 +1,16 @@
 ﻿<template>
     <div>
-    <div class="card-header px-md-1 py-md-1">{{name }}</div>
-    <div class="card-body">
-        <img  v-bind:src="imgUrl" v-bind:alt="name" />
-    </div>
-    <div class="card-footer row mx-0 pl-0">
-        <a class="productFooter col-2 mr-auto ml-0" v-bind:href="productUrl"><i class="fas fa-bars"></i></a>
-        <span class="col-6 mr-auto productFooter price">{{currency}} {{Number(price).toLocaleString('en')}}</span>
-        <i class="fas fa-cart-plus col-3 mr-1"  v-on:click="addToCart(prodcutID)"></i>
-    </div>
+        <div class="card-header px-md-1 py-md-1">{{name }}</div>
+        <div class="card-body">
+            <img  v-bind:src="imgUrl" v-bind:alt="name" />
+        </div>
+        <div class="card-footer row mx-0 pl-0">
+            <a class="productFooter col-2 mr-auto ml-0" v-bind:href="productUrl">
+                <i class="fas fa-eye"></i>
+            </a>
+            <span class="col-6 mr-auto productFooter price">{{currency}} {{Number(price).toLocaleString('en')}}</span>
+            <i class="fas fa-cart-plus col-3 mr-1"  v-on:click="addToCart(prodcutID)"></i>
+        </div>
     </div>
 </template>
 <script>
@@ -49,6 +51,6 @@ export default {
 </script>
 <style>
     .card-footer {
-        color: #007bff
+        color: #153466
     }
 </style>

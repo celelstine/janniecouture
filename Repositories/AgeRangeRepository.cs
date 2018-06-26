@@ -6,11 +6,11 @@ using jannieCouture.Models;
 
 namespace jannieCouture.Repositories
 {
-    public class AgeRangeRespository: IAgeRangeRespository
+    public class AgeRangeRepository: IAgeRangeRepository
     {
 		private readonly AppDbContext _appDbContext;
 
-        public AgeRangeRespository(AppDbContext appDbContext)
+        public AgeRangeRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }

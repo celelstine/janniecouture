@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using jannieCouture.Models;
-
 namespace jannieCouture.Repositories
 {
-    public interface IAgeRangeRespository
+    public interface IProductRepository
     {
-
-        IEnumerable<AgeRange> AgeRanges { get; }
+		IEnumerable<Product> products { get; }
+		Product AddProduct(Product newProduct);
     }
-
 }

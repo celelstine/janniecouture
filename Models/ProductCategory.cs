@@ -14,7 +14,7 @@ namespace jannieCouture.Models
         public string[] MarketNames { get; set; } 
         public string ImageUrl { get; set; }
         public string[] Tags { get; set; }
-        public List<Product> Products { get; set; }
+        public virtual List<Product> Products { get; set; }
     }
 
 }

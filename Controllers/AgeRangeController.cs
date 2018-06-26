@@ -12,11 +12,11 @@ namespace jannieCouture.Controllers
     [Route("api/AgeRange")]
     public class AgeRangeController : Controller
     {
-        private IAgeRangeRespository _ageRangeRepository;
+        private IAgeRangeRepository _ageRangeRepository;
 		private ILogger<AgeRangeController> _logger;
 
         public AgeRangeController(
-            IAgeRangeRespository ageRangeRepository,
+            IAgeRangeRepository ageRangeRepository,
 			 ILogger<AgeRangeController> logger
         )
         {

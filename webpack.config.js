@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 
+
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
 
@@ -62,7 +63,7 @@ module.exports = (env) => {
 }
 **/
 var path = require('path')
-
+var webpack = require('webpack')
 module.exports = {
   entry: { 'main-client': './ClientApp/app.js' },
   output: {
@@ -86,5 +87,11 @@ module.exports = {
         use: [ 'style-loader', 'css-loader' ]
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    })
+  ]
 }

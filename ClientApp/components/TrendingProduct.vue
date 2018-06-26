@@ -1,6 +1,6 @@
 ﻿<template>
-    <div class="container px-1">
-        <h4 class="WelcomeNote"> Trending Dress</h4>
+    <div class="container px-1 mt-2">
+        <h4 class="WelcomeNote"> Trending Outfits</h4>
         <hr class="mt-0" />
         <div class="d-flex row">
             <div
@@ -14,7 +14,7 @@
                          productUrl="#"
                          price="100000"
                          currency="$"
-                         productID="1"
+                         productID=1
                  />
             </div>
         </div>

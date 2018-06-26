@@ -29,6 +29,7 @@
     "vue": "^2.4.4",
     "vue-router": "^3.0.0",
     "vue-server-renderer": "^2.4.4",
+    "vue-zoom": "^1.1.0",
     "vuex": "^3.0.0"
   },
   "devDependencies": {

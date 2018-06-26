@@ -1,27 +1,11 @@
 ﻿<template>
     <div  id="app">
         <Navbar />
-        <div class="d-none d-md-block ProductSubMenu">
+        <div class="d-none d-md-block ProductSubMenu mb-1">
             <ProductSubMenu />
         </div>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h4 class="WelcomeNote">
-                    Any woman can be transformed by a beautiful dress and high heels.
-                </h4>
-                <h6 class="WelcomeNote">
-                    We deliver Ready-made and Customized Facinating dresses at your time
-                </h6>
-                <h6 class="jannieExperience">
-                    So enjoy the <span class="WelcomeNote"> Jannie Experience</span> 
-                    <a href="#">
-                        <i class="fas fa-hand-point-right">
-                            Get Started
-                        </i>
-                    </a>
-                </h6>
-            </div>
-        </div>
+        <Login />
+        <Signup />
         <p v-if="message" class="bg-danger text-white px-lg-2 px-md-1 px-xs-1"> {{ message }}</p>
         <div class="container body-content">
             <router-view />
@@ -39,13 +23,17 @@ import  { mapState } from 'vuex';
 import Navbar from './Navbar.vue';
 import ProductSubMenu from './ProductSubMenu.vue';
 import Footer from './Footer.vue';
+import Signup from './Signup.vue';
+import Login from './Login.vue';
 
 export default {
     name: 'App',
     components : {
         Navbar,
         ProductSubMenu,
-        Footer
+        Footer,
+        Login,
+        Signup,
     },
     computed: {
         ...mapState({
@@ -101,7 +89,7 @@ export default {
         margin-bottom: 1px;
     }
     .WelcomeNote{
-        color: #310bb7;
+        color: #007bff;
         text-align: center;
         font-weight: 700;
         text-transform: Uppercase;
@@ -122,11 +110,46 @@ export default {
     @media (min-width: 760px) {
 
         .col-md-2 {
-            max-width: 15.2% !important;
+            max-width: 15.7666% !important;
         }
     }
     .price {
         font-family: 'Kameron', serif;
     }
 
+    button {
+        color: white;
+        background : #153466 !important;
+    }
+    .formHeader {
+        color: #153466 !important;
+        background: inherit
+    }
+    .card, .card-footer {
+        border-width: 0px;
+    }
+    .card:hover {
+        border-width: 2px;
+    }
+    .card-footer {
+        padding-right: 0px;
+        padding-left: 0x;
+        background: inherit;
+        border-top: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    .product-name {
+        font-size: 14px;
+        display: inline-flex;
+        padding-left: 2px;
+        font-weight: bolder;
+        FONT-STYLE: italic;
+        text-transform: capitalize;
+    }
+    .explore-product{
+        font-size: smaller;
+         padding-right: 2px
+    }
+    a {
+        color: #153466;
+    }
 </style>

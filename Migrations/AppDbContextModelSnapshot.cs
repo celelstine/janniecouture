@@ -1503,7 +1503,7 @@ namespace jannieCouture.Migrations
 
             modelBuilder.Entity("jannieCouture.Models.Product", b =>
                 {
-                    b.HasOne("jannieCouture.Models.ProductCategory")
+                    b.HasOne("jannieCouture.Models.ProductCategory", "ProductCategory")
                         .WithMany("Products")
                         .HasForeignKey("ProductCategoryID");
                 });
