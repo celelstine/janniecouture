@@ -12,9 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+
 using jannieCouture.Services;
 using jannieCouture.ViewModels;
 using jannieCouture.Models;
+using jannieCouture.Repositories;
 
 
 namespace jannieCouture.Controllers
@@ -28,14 +30,16 @@ namespace jannieCouture.Controllers
         private ILogger<AccountController> _logger;
         private IEmailSender _emailSender;
         private AppDbContext _appDbContext;
+        private IUserCategoryRespository _userCategoryRepository;
 
 		public AccountController(
-		   UserManager<IdentityUser> userManager,
-		   SignInManager<IdentityUser> signInManager,
-		   IConfiguration configuration,
-		   ILogger<AccountController> logger,
+		    UserManager<IdentityUser> userManager,
+		    SignInManager<IdentityUser> signInManager,
+		    IConfiguration configuration,
+		    ILogger<AccountController> logger,
             IEmailSender emailSender,
-            AppDbContext appDbContext
+            AppDbContext appDbContext,
+            IUserCategoryRespository userCategoryRepository
 		   )
 		{
 			_userManager = userManager;
@@ -44,7 +48,7 @@ namespace jannieCouture.Controllers
             _logger = logger;
             _emailSender = emailSender;
             _appDbContext = appDbContext;
-
+            _userCategoryRepository = userCategoryRepository;
 		}
 
         [HttpPost]
@@ -53,7 +57,7 @@ namespace jannieCouture.Controllers
         {
             try
             {
-				var user = _appDbContext.ApplicationUser
+                var user = _appDbContext.ApplicationUser
 									 .Where(u => u.Email == model.Email).SingleOrDefault();
 				if (user == null)
 				{
@@ -63,7 +67,10 @@ namespace jannieCouture.Controllers
 				{
 					return StatusCode(401, "You have not confirmed your email yet, please do that then login");
 				}
-				var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+
+                Console.WriteLine("---> user password {0}- {1}", model.Password, model.Email);
+                var result = await _signInManager.PasswordSignInAsync(user.NormalizedUserName, model.Password, false, false);
+
 				if (result.Succeeded)
 				{
 					var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
@@ -73,9 +80,11 @@ namespace jannieCouture.Controllers
 						userName = appUser.UserName,
 					};
 					return StatusCode(200, response);
+                } else if (result.IsLockedOut || result.IsNotAllowed) {
+                   return StatusCode(401, "Your account was disable, please send a mail to our helpdesk");
+                }else {
+					return StatusCode(401, "Wrong email or password");
 				}
-
-				return StatusCode(401, "Wrong email or password"); 
             }
 			catch (Exception ex)
 			{
@@ -90,12 +99,14 @@ namespace jannieCouture.Controllers
 		[AllowAnonymous]
 		public async Task<object> Register([FromBody] RegisterViewModel model)
 		{
-			var user = new IdentityUser
+			var user = new ApplicationUser
 			{
-				UserName = model.Email,
-				Email = model.Email
-			};
+				UserName = model.UserName,
+				Email = model.Email,
+                UserCategory = _userCategoryRepository
+                    .UserCategories.FirstOrDefault(uc => uc.Name == "shopper")
 
+			};
             try
             {
 				var result = await _userManager.CreateAsync(user, model.Password);

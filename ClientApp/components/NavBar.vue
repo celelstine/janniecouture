@@ -9,7 +9,7 @@
         </router-link>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <div class="row">
-                <form class="form-inline mr-auto my-2 my-lg-0 col-lg-8">
+                <form class="form-inline mr-auto my-2 my-lg-0 col-lg-6">
                     <input
                            class="form-control col-md-8 mr-sm-8"
                            id="navbar_searchbox" type="search"

@@ -96,7 +96,7 @@ namespace jannieCouture
             services.AddTransient<IProductTagRepository, ProductTagRepository>();
 			services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
 			services.AddTransient<IProductRepository, ProductRepository>();
-
+            services.AddTransient<IUserCategoryRespository, UserCategoryRespository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddMvc();
 			services.AddMemoryCache();

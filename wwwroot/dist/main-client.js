@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b0b2a774cad87b8fd219"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b264ff318b32f5766947"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -10887,7 +10887,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var PROCESSING_REQUEST = exports.PROCESSING_REQUEST = 'PROCESSING_REQUEST';
-var FECTH_AGERANGE = exports.FECTH_AGERANGE = 'FECTH_AGERANGE';
+var FETCH_AGERANGE = exports.FETCH_AGERANGE = 'FETCH_AGERANGE';
 var ERROR = exports.ERROR = 'ERROR';
 var SIGN_IN = exports.SIGN_IN = 'SIGN_IN';
 var MESSAGE = exports.MESSAGE = 'MESSAGE';
@@ -24831,6 +24831,8 @@ var store = new _vuex2.default.Store({
             state.isLoading = true;
         },
         FETCH_AGERANGE: function FETCH_AGERANGE(state, payload) {
+            console.log('came here with ', payload);
+
             state.message = null;
             state.isLoading = false;
             state.ageRanges = payload;
@@ -27747,8 +27749,10 @@ var fetchAgeRange = exports.fetchAgeRange = function fetchAgeRange(_ref) {
 
     commit(_mutationTypes.PROCESSING_REQUEST);
     _axios2.default.get(state.domainUrl + '/api/AgeRange').then(function (response) {
-        commit(_mutationTypes.FECTH_AGERANGE, response.data);
+        console.log('--->', response.data);
+        commit(_mutationTypes.FETCH_AGERANGE, response.data);
     }).catch(function (err) {
+        console.log('--->>', err);
         commit(_mutationTypes.ERROR, err.response.data);
     });
 };
@@ -36787,7 +36791,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('form', {
-    staticClass: "form-inline mr-auto my-2 my-lg-0 col-lg-8"
+    staticClass: "form-inline mr-auto my-2 my-lg-0 col-lg-6"
   }, [_c('input', {
     staticClass: "form-control col-md-8 mr-sm-8",
     attrs: {

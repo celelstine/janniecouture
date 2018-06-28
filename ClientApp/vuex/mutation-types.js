@@ -1,5 +1,5 @@
 ﻿export const PROCESSING_REQUEST = 'PROCESSING_REQUEST';
-export const FECTH_AGERANGE = 'FECTH_AGERANGE';
+export const FETCH_AGERANGE = 'FETCH_AGERANGE';
 export const ERROR = 'ERROR';
 export const SIGN_IN = 'SIGN_IN';
 export const MESSAGE = 'MESSAGE';

@@ -36,4 +36,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="ClientApp\vuex\modules\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Repositories\EmptyInterface.cs" />
+  </ItemGroup>
 </Project>

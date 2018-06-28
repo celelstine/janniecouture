@@ -33,6 +33,8 @@ const store = new Vuex.Store({
             state.isLoading = true;
         },
         FETCH_AGERANGE: (state, payload) => {
+            console.log('came here with ', payload);
+
             state.message = null;
             state.isLoading = false;
             state.ageRanges = payload;
