@@ -68,7 +68,6 @@ namespace jannieCouture.Controllers
 					return StatusCode(401, "You have not confirmed your email yet, please do that then login");
 				}
 
-                Console.WriteLine("---> user password {0}- {1}", model.Password, model.Email);
                 var result = await _signInManager.PasswordSignInAsync(user.NormalizedUserName, model.Password, false, false);
 
 				if (result.Succeeded)
@@ -117,6 +116,10 @@ namespace jannieCouture.Controllers
 					var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
 					 _emailSender.SendEmailAsync(model.Email, "Confirm your account",
 						$"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+
+                    string userRole = (model.role != null) ? model.role : "Shopper";
+                    
+                    await _userManager.AddToRoleAsync(user, userRole);
                     return StatusCode(200, "Well done, please check your mail and verifiy your account");
                     // await _signInManager.SignInAsync(user, false);
 					//return await GenerateJwtToken(model.Email, user);

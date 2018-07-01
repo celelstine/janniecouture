@@ -47,13 +47,55 @@ namespace jannieCouture
             _config = builder.Build();
         }
 
+		private async Task CreateRoles(IServiceProvider serviceProvider)
+		{
+			//initializing custom roles 
+			var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+			var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+			string[] roleNames = { "Admin", "Manager", "Staff", "Shopper", "Vendor" };
+			IdentityResult roleResult;
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+			foreach (var roleName in roleNames)
+			{
+				var roleExist = await RoleManager.RoleExistsAsync(roleName);
+				if (!roleExist)
+				{
+					//create the roles and seed them to the database: Question 1
+					roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+				}
+			}
+
+			//Here you could create a super user who will maintain the web app
+			var poweruser = new ApplicationUser
+			{
+
+				UserName = _config["AdminUserName"],
+				Email = _config["AdminEmail"],
+			};
+			//Ensure you have these values in your appsettings.json file
+			string userPWD = _config["AdminPassword"];
+			var _user = await UserManager.FindByEmailAsync(_config["AdminEmail"]);
+
+			if (_user == null)
+			{
+				var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
+				if (createPowerUser.Succeeded)
+				{
+					//here we tie the new user to the role
+					await UserManager.AddToRoleAsync(poweruser, "Admin");
+
+				}
+			}
+		}
+
+
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
         {
 			services.AddSingleton(_config);
 			var connectionString = _config.GetConnectionString("DefaultConnection");
-			services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+			services.AddEntityFrameworkNpgsql()
+                    .AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 			// addTransient: one per invokation
 			// addSingleton: one for all
 			// addScoped : one instance per http request
@@ -106,7 +148,11 @@ namespace jannieCouture
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IHostingEnvironment env,
+            IServiceProvider serviceProvider
+        )
         {
             if (env.IsDevelopment())
             {
@@ -137,6 +183,9 @@ namespace jannieCouture
                     new { controller = "Home", action = "Index" }
                 );
             });
+
+            // setup user roles
+            CreateRoles(serviceProvider).Wait();
         }
     }
 }

@@ -8,22 +8,21 @@
         <h5 v-if="hasMessage" class="text-warning"> {{message}}</h5>
         <div class="row">
             <div
-                 class="p-0 flex-fill col-md-3 col-sm-12 mr-md-2 mt-2 card"
+                 class="p-0 flex-fill col-md-2 col-sm-12 mr-md-2 mt-2 card"
                  v-for="product in products"
                  v-bind:key="product.productID">
                     <div class="card-header">{{ product.name }}</div>
-                    <div class="card-body">
+                    <div
+                         class="card-body"
+                         v-on:click="gotoProductPage(product.name )"
+                         >
                         <img v-bind:src="product.imageUrl" alt="Name" />
                     </div>
                 <div class="card-footer row mx-0 pl-0">
-                    <router-link 
-                                 :to="{ name: 'product',params: { name:  product.name}}"
-                                 class="productFooter col-3 mr-auto ml-1">
-                        <i class="fas fa-eye"></i>
-                    </router-link>
-                        <span class="col-5 mr-auto productFooter price">
-                            &#8358;{{ Number(product.priceCurrent).toLocaleString('en') }} &nbsp;
-                            ({{ product.priceRange }})
+                    
+                    <span class="col-8 ml-1 mr-auto productFooter price">
+                        &#8358;{{ Number(product.priceCurrent).toLocaleString('en') }} &nbsp;
+                        ({{ product.priceRange }})
                         </span>
                     <i
                        class="fas fa-cart-plus col-3 mr-0"
@@ -34,9 +33,11 @@
         </div>
     </div>
 </template>
+
 <script>
 import Product from './Product.vue'
 import { mapState } from 'vuex';
+
 export default {
     name: 'ProductCategoryDetail',
     mounted() {
@@ -74,5 +75,16 @@ export default {
         }
       }
     },
+    methods: {
+        gotoProductPage(name) {
+            this.$router.push({ path: `/product/${name}` });
+        },
+    }
 }
 </script>
+
+<style scoped>
+    .card-body {
+        cursor: pointer;
+    }
+</style>
