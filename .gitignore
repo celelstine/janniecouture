@@ -11,3 +11,8 @@ node_modules/
 *.sln
 bin/
 appsettings.json
+
+
+wwwroot/dist/
+
+obj/
