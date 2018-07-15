@@ -12,9 +12,10 @@ using System;
 namespace jannieCouture.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180715085751_fixProductDetailPriceRelationship")]
+    partial class fixProductDetailPriceRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -681,11 +682,16 @@ namespace jannieCouture.Migrations
 
                     b.Property<int?>("ProductDetailID");
 
+                    b.Property<int?>("ProductDetailPriceHistoryId");
+
                     b.HasKey("ProductDetailPriceId");
 
                     b.HasIndex("AgeRangeId");
 
                     b.HasIndex("ProductDetailID");
+
+                    b.HasIndex("ProductDetailPriceHistoryId")
+                        .IsUnique();
 
                     b.ToTable("ProductDetailPrice");
                 });
@@ -709,15 +715,11 @@ namespace jannieCouture.Migrations
 
                     b.Property<int?>("ProductDetailID");
 
-                    b.Property<int?>("ProductDetailPriceId1");
-
                     b.HasKey("ProductDetailPriceHistoryId");
 
                     b.HasIndex("AgeRangeId");
 
                     b.HasIndex("ProductDetailID");
-
-                    b.HasIndex("ProductDetailPriceId1");
 
                     b.ToTable("ProductDetailPriceHistory");
                 });
@@ -1548,6 +1550,10 @@ namespace jannieCouture.Migrations
                     b.HasOne("jannieCouture.Models.ProductDetail", "ProductDetail")
                         .WithMany("ProductDetailPrices")
                         .HasForeignKey("ProductDetailID");
+
+                    b.HasOne("jannieCouture.Models.ProductDetailPriceHistory", "ProductDetailPriceHistory")
+                        .WithOne("ProductDetailPriceId")
+                        .HasForeignKey("jannieCouture.Models.ProductDetailPrice", "ProductDetailPriceHistoryId");
                 });
 
             modelBuilder.Entity("jannieCouture.Models.ProductDetailPriceHistory", b =>
@@ -1559,10 +1565,6 @@ namespace jannieCouture.Migrations
                     b.HasOne("jannieCouture.Models.ProductDetail", "ProductDetail")
                         .WithMany()
                         .HasForeignKey("ProductDetailID");
-
-                    b.HasOne("jannieCouture.Models.ProductDetailPrice", "ProductDetailPriceId")
-                        .WithMany("ProductDetailPriceHistory")
-                        .HasForeignKey("ProductDetailPriceId1");
                 });
 
             modelBuilder.Entity("jannieCouture.Models.ShoppingCartItem", b =>

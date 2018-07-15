@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <div class="jumbotron jumbotron-fluid">
+        <div class="jumbotron jumbotron-fluid" v-if="!userName">
             <div class="container">
                 <h4 class="WelcomeNote">
                     Any woman can be transformed by a beautiful dress and high heels.
@@ -31,7 +31,7 @@
 <script>
 import { mapState } from 'vuex';
 import ProductCategory from './ProductCategory.vue';
-import TrendingProduct from './TrendingProduct.vue'
+import TrendingProduct from './TrendingProduct.vue';
 
 export default {
     name: 'Home',

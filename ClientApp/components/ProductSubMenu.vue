@@ -25,6 +25,11 @@ export default {
             productCategories: state => state.productCategories,
         }),
     },
+    created() {
+        if (!this.productCategories.length) {
+            this.$store.dispatch('productCategory/get', 0);
+        }
+    }
 }
 </script>
 <style scoped>

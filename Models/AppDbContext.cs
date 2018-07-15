@@ -17,6 +17,7 @@ namespace jannieCouture.Models
 
 		//protected override void OnModelCreating(ModelBuilder builder)
 		//{
+  //          base.OnModelCreating(builder);
   //          builder.Entity<ProductTag>()
   //                 .HasIndex(u => u.Name)
 		//		 .IsUnique();
@@ -24,6 +25,9 @@ namespace jannieCouture.Models
   //          builder.Entity<ProductCategory>()
 		//		  .HasIndex(u => u.Name)
 		//		.IsUnique();
+  //          builder.Entity<ProductCategory>()
+  //                 .Property(pc => pc.status)
+  //                 .HasDefaultValue("active");
 		//}
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<AgeRange> AgeRange { get; set; }

@@ -1,5 +1,5 @@
 ﻿<template>
-    <div  id="app">
+    <div  id="app" class="container-fluid">
         <Navbar />
         <div class="d-none d-md-block ProductSubMenu mb-1">
             <ProductSubMenu />
@@ -151,5 +151,14 @@ export default {
     }
     a {
         color: #153466;
+    }
+    .card-img {
+        border-radius: 0;
+    }
+    .fa-trash {
+        color: #808080;
+    }
+    .hide {
+        display: none;
     }
 </style>

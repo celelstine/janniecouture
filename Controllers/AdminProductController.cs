@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CloudinaryDotNet;
+using Microsoft.Extensions.Configuration;
 using CloudinaryDotNet.Core;
 using CloudinaryDotNet.Actions;
 using Newtonsoft.Json.Linq;
@@ -16,12 +17,15 @@ namespace jannieCouture.Controllers
     {
 
         static Cloudinary cloudinary;
-        public AdminProductController () {
+        private readonly IConfiguration _configuration;
 
+        public AdminProductController (IConfiguration configuration) {
+            _configuration = configuration;
             Account account = new Account(
-              "celestine",
-              "381232645994128",
-              "f0HJ2TvgV2cvmK0DkJXhQVlhLuk");
+              _configuration["CLOUDINARY_USERNAME"],
+              _configuration["CLOUDINARY_APIKEY"],
+              _configuration["CLOUDINARY_SECRETKEY"]
+            );
 
             cloudinary = new Cloudinary(account);
         }

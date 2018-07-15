@@ -1,6 +1,6 @@
 ﻿<template>
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white" data-spy="affix" data-offset-top="197">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -65,22 +65,31 @@ export default {
 }
 </script>
 <style>
-        #navbar_searchbox {
-            background-color: #f8f9fa;
-            color: #153466
-        }
-        .navbar-brand{
-            color: #153466 !important;
-            font-size: x-large;
-            font-style: italic;
-            font-weight: 900
-        }
-        .username {
-            text-transform: capitalize;
-            text-decoration: underline;
-            color: #153466 !important;
-            cursor: pointer;
-            max-width: 85px;
-            overflow: hidden;
-         }
+      #navbar_searchbox {
+          background-color: #f8f9fa;
+          color: #153466
+      }
+      .navbar-brand{
+          color: #153466 !important;
+          font-size: x-large;
+          font-style: italic;
+          font-weight: 900
+      }
+      .username {
+          text-transform: capitalize;
+          text-decoration: underline;
+          color: #153466 !important;
+          cursor: pointer;
+          max-width: 85px;
+          overflow: hidden;
+      }
+      .affix {
+        top: 0;
+        width: 100%;
+        z-index: 9999 !important;
+    }
+
+    .affix + .container-fluid {
+        padding-top: 70px;
+    }
 </style>
