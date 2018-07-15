@@ -12,7 +12,9 @@ import
         PROCESSING_REQUEST,
         FETCH_AGERANGE,
         ERROR,
-        FETCH_PRODUCT_TAG
+        FETCH_PRODUCT_TAG,
+        DONE,
+        LOADING
     } from './mutation-types';
 
 Vue.use(Vuex)
@@ -33,8 +35,6 @@ const store = new Vuex.Store({
             state.isLoading = true;
         },
         FETCH_AGERANGE: (state, payload) => {
-            console.log('came here with ', payload);
-
             state.message = null;
             state.isLoading = false;
             state.ageRanges = payload;
@@ -47,7 +47,13 @@ const store = new Vuex.Store({
             state.isLoading = false;
             state.productTags = payload;
             state.message = null;
-        }
+        },
+        DONE: (state) => {
+            state.isLoading = false;
+        },
+        LOADING: (state) => {
+            state.isLoading = true;
+        },
     },
     actions: {
         fetchAgeRange,

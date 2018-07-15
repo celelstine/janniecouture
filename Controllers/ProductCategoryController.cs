@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 using CloudinaryDotNet;
 using CloudinaryDotNet.Core;
 using CloudinaryDotNet.Actions;
@@ -129,6 +131,7 @@ namespace jannieCouture.Controllers
 				}
                 List<ProductCategory> productCategories = _productCategoryRepository
                     .productCategories
+                    .Where(pc => pc.status == "active")
                     .Skip(_lastProductIndex)
                     .Take(_size)
                     .ToList();
@@ -153,6 +156,54 @@ namespace jannieCouture.Controllers
 			}
 		}
 
+        [Authorize(Roles = "Admin")]
+        [HttpPut("edit/{productCategoryID}")]
+		public IActionResult Edit(int productCategoryID, [FromForm] ProductCategoryViewModel model)
+		{
+			try
+			{
+
+				// check that a product category does not exist with same name
+				ProductCategory foundCategory = _productCategoryRepository
+					.productCategories
+					.Where(pc => pc.ProductCategoryID == productCategoryID)
+					.FirstOrDefault();
+				if (foundCategory != null)
+				{
+
+					if (HttpContext.Request.Form.Files.Count() > 0)
+					{
+						var file = HttpContext.Request.Form.Files[0];
+						var result = cloudinary.Upload(new ImageUploadParams()
+						{
+							File = new FileDescription(file.FileName, file.OpenReadStream()),
+							Tags = String.Join(" ", model.Tags)
+						});
+
+						foundCategory.ImageUrl = result.SecureUri.ToString();
+						foundCategory.Name = model.Name;
+						foundCategory.MarketNames = model.MarketNames[0].Split(',');
+						foundCategory.Tags = model.Tags[0].Split(',');
+					}
+					else
+					{
+						foundCategory.Name = model.Name;
+						foundCategory.MarketNames = model.MarketNames[0].Split(',');
+						foundCategory.Tags = model.Tags[0].Split(',');
+					}
+					_appDbContext.SaveChanges();
+					return Ok(foundCategory);
+				}
+				return StatusCode(400, "This product category does not exist");
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"An error occurred while editing product Category {DateTime.UtcNow}, error_message - {ex}");
+				return StatusCode(500, "Failed to add product Category.");
+			}
+		}
+
+        [Authorize(Roles = "Admin")]
 		[HttpPost("")]
         public IActionResult AddProductCategory([FromForm] ProductCategoryViewModel model)
 		{
@@ -164,8 +215,8 @@ namespace jannieCouture.Controllers
                     .productCategories
                     .Where(pc => pc.Name == model.Name)
                     .FirstOrDefault();
-                if (existingcategory == null){
-                    return StatusCode(400, $"A product Category with name; {model.Name} exist already");
+                if (existingcategory != null){
+                    return StatusCode(400, $"A product Category with name: {model.Name} exist already");
                 }
 				var file = HttpContext.Request.Form.Files[0];
 
@@ -177,9 +228,10 @@ namespace jannieCouture.Controllers
 
 				ProductCategory newProductCategory = new ProductCategory();
 				newProductCategory.Name = model.Name;
-                newProductCategory.MarketNames = model.MarketNames;
-                newProductCategory.Tags = model.Tags;
+                newProductCategory.MarketNames = model.MarketNames[0].Split(',');
+                newProductCategory.Tags = model.Tags[0].Split(',');
                 newProductCategory.ImageUrl = result.SecureUri.ToString();
+                newProductCategory.status = "active";
                 _productCategoryRepository.AddProductCategory(newProductCategory);
 				return Ok(newProductCategory);
 			}
@@ -189,5 +241,33 @@ namespace jannieCouture.Controllers
 				return StatusCode(500, "Failed to add product Category.");
 			}
 		}
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{productCategoryID}")]
+		public IActionResult Delete(int productCategoryID)
+		{
+			try
+			{
+
+				// check that a product category does not exist with same name
+				ProductCategory foundCategory = _productCategoryRepository
+					.productCategories
+					.Where(pc => pc.ProductCategoryID == productCategoryID)
+					.FirstOrDefault();
+				if (foundCategory != null)
+				{
+                    foundCategory.status = "deleted";
+					_appDbContext.SaveChanges();
+					return Ok("Deleted successfully");
+				}
+				return StatusCode(400, "This product category does not exist");
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"An error occurred while editing product Category {DateTime.UtcNow}, error_message - {ex}");
+				return StatusCode(500, "Failed to add product Category.");
+			}
+		}
+
     }
 }

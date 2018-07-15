@@ -3,7 +3,9 @@ import axios from 'axios';
 import {
     SIGN_IN,
     MESSAGE,
-    LOGOUT
+    LOGOUT,
+    DONE,
+    LOADING
     } from '../mutation-types';
 import router from '../../router';
 /* eslint-disable no-shadow  */
@@ -17,6 +19,7 @@ const state = {
   messageForSignup: null,
   userCategory: null,
   messageForConfirmPassword: null,
+  roles: null,
 };
 
 // getters
@@ -29,8 +32,13 @@ const getters = {
 // actions
 const actions = {
   confirmAccount({ commit, state }, credentials ) {
-        axios.get(`${state.domainUrl}/Account/ConfirmEmailAPI?userId=${credentials.userId}&code=${credentials.userCode}`)
-        .then(response => commit(SIGN_IN, { ...response.data }))
+    commit(LOADING, null, { root: true })
+        axios
+        .get(`${state.domainUrl}/Account/ConfirmEmailAPI?userId=${credentials.userId}&code=${credentials.userCode}`)
+        .then(response => {
+            commit(DONE, null, { root: true });
+            commit(SIGN_IN, { ...response.data });
+         })
         .catch((error) => {
             localStorage.removeItem('32snksnsknskn');
             let message = 'An internal error occurred, please try again';
@@ -41,13 +49,14 @@ const actions = {
         });
   },
   login({ commit, state }, credentials) {
+    commit(LOADING, null, { root: true })
     commit(MESSAGE, { recipient: 'login', message: 'Processing your request....' });
     axios.post(`${state.domainUrl}/Account/Login`, credentials)
-      .then(response =>
-        commit(SIGN_IN, { ...response.data }),
-      )
+      .then(response => {
+        commit(DONE, null, { root: true });
+        commit(SIGN_IN, { ...response.data });
+      })
       .catch((error) => {
-      console.log("---------->", error);
         localStorage.removeItem('32snksnsknskn');
         let message = 'An internal error occurred, please try again';
         if (error.response && error.response.status && error.response.status !== 500) {
@@ -57,14 +66,16 @@ const actions = {
       });
   },
   signup({ commit, state }, credentials) {
+    commit(LOADING, null, { root: true })
     commit(MESSAGE, { recipient: 'signup', message: 'Registrying your Account....' });
     axios.post(`${state.domainUrl}/Account/Register`, credentials)
-      .then(response =>
+      .then(response => {
+        commit(DONE, null, { root: true });
         commit(MESSAGE, {
             messagefor: 'signup',
             message: 'You have successfully signup, please check your mail and verifiy your account' 
         })
-      )
+      })
       .catch((error) => {
         localStorage.removeItem('32snksnsknskn');
         let message = 'An internal error occurred, please try again';
@@ -86,7 +97,8 @@ const actions = {
 const mutations = {
   [SIGN_IN](state, {
     jwt,
-    userName
+    userName,
+    roles
   }) {
     state.userName = userName;
     state.jwt = jwt;
@@ -95,7 +107,8 @@ const mutations = {
     state.message = '';
     state.messageForLogin = null;
     state.fromSignup = null;
-    router.push({ path: '/' });
+    state.roles = roles;
+    // router.push({ path: '/' });
     // if (!fromHome) {
       // router.push({ path: '/sellCard' });
     // }

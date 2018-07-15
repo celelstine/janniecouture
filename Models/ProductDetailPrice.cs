@@ -15,6 +15,6 @@ namespace jannieCouture.Models
         public string Currency { get; set; }
         public AgeRange AgeRange { get; set; }
         public double? Discount { get; set; }
-        public ProductDetailPriceHistory ProductDetailPriceHistory { get; set; }
+        public List<ProductDetailPriceHistory> ProductDetailPriceHistory { get; set; }
     }
 }

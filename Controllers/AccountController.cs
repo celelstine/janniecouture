@@ -77,6 +77,7 @@ namespace jannieCouture.Controllers
 					{
 						jwt = await GenerateJwtToken(appUser.Email, appUser),
 						userName = appUser.UserName,
+                        roles = await _userManager.GetRolesAsync(appUser)
 					};
 					return StatusCode(200, response);
                 } else if (result.IsLockedOut || result.IsNotAllowed) {
