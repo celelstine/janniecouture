@@ -36,7 +36,6 @@
     watch: {
         imageUrl(val) {
             // $('#product-main-page').elevateZoom();
-            console.log('---->', val);
         }
     },
     data() {

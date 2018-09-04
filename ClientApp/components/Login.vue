@@ -76,7 +76,7 @@ export default {
         ...mapState('auth', {
             message: state => state.message,
             jwt: state => state.jwt,
-            hasMessage: state => state.messageForLogin,
+            hasMessage: state => (state.messageRecipient == 'Login'),
         }),
     },
     methods: {

@@ -13,8 +13,7 @@ var serialize = require('serialize-javascript')
 var prerendering = require('aspnet-prerendering')
 module.exports = prerendering.createServerRenderer(function (params) {
   return new Promise(
-    function (resolve, reject) { 
-      // console.log('#prerendering#',params)
+    function (resolve, reject) {
       const context = {
         url: params.url,
         absoluteUrl: params.absoluteUrl,

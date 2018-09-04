@@ -1,22 +1,24 @@
 ﻿import axios from 'axios';
 import {
-    ADDING_PRODUCT_CATEGORY,
-    ADDING_PRODUCT,
-    ADDED_PRODUCT,
-    ADDED_PRODUCT_CATEGORY,
-    MESSAGE,
-    FETCH_PRODUCT_CATEGORIES,
-    FETCHING_PRODUCT_CATEGORIES,
-    FETCHING_PRODUCT_CATEGORY,
-    FETCH_PRODUCT_CATEGORY,
-    FETCHING_PRODUCTS,
-    FETCH_PRODUCTS,
-    DONE,
-    LOADING,
-    EDITING_PRODUCT_CATEGORY,
-    EDITED,
-    DELETED_PRODUCT_CATEGORY
-    } from '../mutation-types';
+  DONE,
+  EDITED,
+  LOADING,
+  MESSAGE,
+  ADDED_PRODUCT,
+  FETCH_PRODUCTS,
+  ADDING_PRODUCT,
+  EDITTED_PRODUCT,
+  DELETED_PRODUCT,
+  FETCHING_PRODUCTS,
+  ADDED_PRODUCT_CATEGORY,
+  FETCH_PRODUCT_CATEGORY,
+  ADDING_PRODUCT_CATEGORY,
+  FETCH_PRODUCT_CATEGORIES,
+  DELETED_PRODUCT_CATEGORY,
+  EDITING_PRODUCT_CATEGORY,
+  FETCHING_PRODUCT_CATEGORY,
+  FETCHING_PRODUCT_CATEGORIES,
+} from '../mutation-types';
 
 /* eslint-disable no-shadow  */
 
@@ -25,14 +27,11 @@ const state = {
   productCategories: [],
   products: [],
   message: '',
+  messageRecipient: null,
   domainUrl: 'http://localhost:5001',
   hasMoreproductCategories: true,
   hasMoreproducts: true,
   productCategory: {},
-  messageForProductCategory: false,
-  messageForProducts: false,
-  messageForAdminProducts: false,
-  messageForAdminProdCat: false
 };
 
 // getters
@@ -43,7 +42,7 @@ const getters = {
 
 // actions 
 const actions = {
-  add({ commit, state }, { formData } ) {
+  addProductCategory({ commit, state }, { formData } ) {
     commit(ADDING_PRODUCT_CATEGORY, {});
     commit(LOADING, null, { root: true })
     axios.post(`${state.domainUrl}/api/ProductCategory`,
@@ -67,7 +66,7 @@ const actions = {
         return commit(MESSAGE, { message, recipient: 'adminProdCat'});
       });
   },
-  edit({ commit, state }, { prodCatIndex, productCatID, formData } ) {
+  editProductCategory({ commit, state }, { prodCatIndex, productCatID, formData } ) {
     commit(EDITING_PRODUCT_CATEGORY, {});
     commit(LOADING, null, { root: true })
     axios.put(`${state.domainUrl}/api/ProductCategory/Edit/${productCatID}`,
@@ -91,7 +90,7 @@ const actions = {
         return commit(MESSAGE, { message, recipient: 'adminProdCat'});
       });
   },
-  get({ commit, state }, lastIndex ) {
+  getaddProductCategories({ commit, state }, lastIndex ) {
     commit(FETCHING_PRODUCT_CATEGORIES);
     commit(LOADING, null, { root: true })
     axios.get(`${state.domainUrl}/api/ProductCategory?lastIndex=${lastIndex}&size=10`)
@@ -108,7 +107,7 @@ const actions = {
         return commit(MESSAGE, { message, recipient: 'adminProdCat'});
     });
   },
-  deleteProdCat({ commit, state }, {productCategoryID, index} ) {
+  deleteProductCategory({ commit, state }, {productCategoryID, index} ) {
     commit(MESSAGE, { message: `Deleting ${productCategoryID}`, recipient: 'productCategory'});
     commit(LOADING, null, { root: true })
     axios.delete(`${state.domainUrl}/api/ProductCategory/${productCategoryID}`)
@@ -125,7 +124,7 @@ const actions = {
         return commit(MESSAGE, { message, recipient: 'productCategory'});
     });
   },
-  getCatByName({ commit, state }, {name} ) {
+  getproductCategoryByName({ commit, state }, {name} ) {
     commit(FETCHING_PRODUCT_CATEGORY);
     commit(LOADING, null, { root: true })
     axios.get(`${state.domainUrl}/api/ProductCategory/${name}`)
@@ -142,7 +141,7 @@ const actions = {
         return commit(MESSAGE, { message, recipient: 'productCategory' });
     });
   },
-  getProductsByCatName({ commit, state }, { name, lastIndex } ) {
+  getProductsByproductCategoryName({ commit, state }, { name, lastIndex } ) {
     commit(FETCHING_PRODUCTS);
     commit(LOADING, null, { root: true })
     axios.get(`${state.domainUrl}/api/ProductCategory/${name}/products?lastIndex=${lastIndex}&size=10`)
@@ -171,13 +170,60 @@ const actions = {
     )
       .then(response =>  commit(ADDED_PRODUCT, response.data))
       .catch((error) => {
-        console.log('error', error);
         let message = 'An internal error occurred, please try again';
         if (error.response && error.response.status && error.response.status !== 500) {
           message = error.response.data;
         }
         return commit(MESSAGE, { message, recipient: 'adminProd'});
       });
+  },
+  editProduct({ commit, state }, { prodIndex, productID, formData } ) {
+    commit(MESSAGE, { 
+      message: 'Editting product....',
+      recipient: 'adminProd'
+    });
+    commit(LOADING, null, { root: true });
+
+    axios.put(`${state.domainUrl}/api/Product/Edit/${productID}`,
+      formData,
+      {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      },
+    )
+      .then(response =>  {
+          commit(DONE, null, { root: true });
+          commit(EDITTED_PRODUCT, { prodIndex, product: response.data});
+        })
+      .catch((error) => {
+        commit(DONE, null, { root: true })
+        let message = 'An internal error occurred, please try again';
+        if (error.response && error.response.status && error.response.status !== 500) {
+          message = error.response.data;
+        }
+        return commit(MESSAGE, { message, recipient: 'adminProd'});
+      });
+  },
+  deleteProduct({ commit, state }, {productID, index} ) {
+    commit(MESSAGE, { 
+      message: `Deleting ${productID}`, 
+      recipient: 'Products'
+    });
+    commit(LOADING, null, { root: true })
+    axios.delete(`${state.domainUrl}/api/Product/${productID}`)
+    .then(response => {
+        commit(DONE, null, { root: true })
+        return commit(DELETED_PRODUCT, index);
+    })
+    .catch(error => {
+        commit(DONE, null, { root: true })
+        let message = 'An internal error occurred, please try again';
+        if (error.response && error.response.status && error.response.status !== 500) {
+            message = error.response.data;
+        }
+        return commit(MESSAGE, { message, recipient: 'Products'});
+    });
   },
 };
 
@@ -186,40 +232,28 @@ const mutations = {
   [ADDED_PRODUCT_CATEGORY](state, newProductCategory) {
     state.productCategories.unshift(newProductCategory);
     state.message = `${newProductCategory.name} has been added successfully`;
-    state.messageForProducts = false;
-    state.messageForAdminProdCat = false;
-    state.messageForProductCategory = true;
+    state.messageRecipient = 'ProductCategory';
   },
   [ADDED_PRODUCT](state, newProduct) {
     state.products.unshift(newProduct);
     state.message = `${newProduct.name} has been added successfully`;
-    state.messageForProducts = false;
-    state.messageForAdminProducts = true;
-    state.messageForAdminProdCat = false;
-    state.messageForProductCategory = false;
+    state.messageRecipient = 'AdminProducts';
   },
   [MESSAGE](state, { message, recipient }) {
     state.message = message;
-    state.hasMoreproductCategories = false;
-
-    // reset every message category indicator
-    state.messageForProductCategory = false;
-    state.messageForProducts = false;
-    state.messageForAdminProdCat = false;
-    state.messageForAdminProducts = false;
 
     switch (recipient) {
       case 'adminProd': 
-        state.messageForAdminProducts =  true;
+        state.messageRecipient = 'AdminProducts';
         break;
       case 'products':
-        state.messageForProducts = true;
+        state.messageRecipient = 'Products';
         break;
       case 'productCategory':
-        state.messageForProductCategory = true;
+        state.messageRecipient = 'ProductCategory';
         break;
       case 'adminProdCat':
-       state.messageForAdminProdCat = true;
+        state.messageRecipient = 'AdminProdCat';
        break;
       default:
         break;
@@ -228,17 +262,11 @@ const mutations = {
   },
   [ADDING_PRODUCT_CATEGORY](state) {
     state.message = 'Registrying new Product Category ......';
-    state.messageForProducts = false;
-    state.messageForAdminProdCat = false;
-    state.messageForProductCategory = true;
-    state.messageForProductCategory = false;
+    state.messageRecipient = 'ProductCategory';
   },
   [FETCHING_PRODUCT_CATEGORIES](state) {
     state.message = 'Fetching Product Categories ......';
-    state.messageForProducts = false;
-    state.messageForAdminProdCat = false;
-    state.messageForProductCategory = true;
-    state.messageForProductCategory = false;
+    state.messageRecipient = 'ProductCategory';
   },
   [FETCH_PRODUCT_CATEGORIES](state, payload) {
     state.message = null;
@@ -255,21 +283,15 @@ const mutations = {
   },
   [FETCHING_PRODUCT_CATEGORY](state) {
     state.message = `Fetching Product Category ......`;
-    state.messageForProductCategory = false;
-    state.messageForAdminProdCat = false;
-    state.messageForProducts = true;
-    state.messageForProductCategory = false;
+    state.messageRecipient = 'Products';
   },
   [FETCHING_PRODUCTS](state) {
-    state.messageForProducts = true;
-    state.messageForProductCategory = false;
-    state.messageForAdminProdCat = false;
-    state.messageForProductCategory = false;
+    state.messageRecipient = 'Products';
     state.message = `Fetching Products ......`;
   },
   [FETCH_PRODUCTS](state, { lastIndex, payload}) {
     state.message = null;
-    state.messageForProducts = false;
+    state.messageRecipient = null;
     if ( payload.length > 0) {
         state.hasMoreproducts = true;
     } else {
@@ -283,33 +305,32 @@ const mutations = {
 
   },
   [EDITING_PRODUCT_CATEGORY](state) {
-    state.messageForProducts = false; 
-    state.messageForProductCategory = false;
-    state.messageForAdminProdCat = true;
-    state.messageForProductCategory = false;
+    state.messageRecipient = 'AdminProdCat';
     state.message = `Editing product Category ......`;
   },
   [EDITED](state, { prodCatIndex, productCategory}) {
-    state.messageForProducts = false; 
-    state.messageForProductCategory = false;
-    state.messageForAdminProdCat = true;
-    state.messageForProductCategory = false;
+    state.messageRecipient = 'AdminProdCat';
     state.message = `${productCategory.name} has been updated successfully ......`;
     state.productCategories[prodCatIndex] = productCategory;
   },
-  [DELETED_PRODUCT_CATEGORY](state, prodCatIndex) {
-    state.messageForProducts = false; 
-    state.messageForProductCategory = true;
-    state.messageForAdminProdCat = false;
-    state.message = `${state.productCategories[prodCatIndex].name} has been deleted successfully ......`;
-    state.productCategories.splice(prodCatIndex, 1);
+  [EDITTED_PRODUCT](state, { productIndex, product}) {
+    state.messageRecipient = 'AdminProducts';
+    state.message = `${product.name} has been updated successfully ......`;
+    state.products[productIndex] = product;
+  },
+  [DELETED_PRODUCT_CATEGORY](state, productCategoryIndex) {
+    state.messageRecipient = 'ProductCategory';
+    state.message = `${state.productCategories[productCategoryIndex].name} has been deleted successfully ......`;
+    state.productCategories.splice(productCategoryIndex, 1);
+  },
+  [DELETED_PRODUCT](state, productIndex) {
+    state.messageRecipient = 'Products';
+    state.message = `${state.products[productIndex].name} has been deleted successfully ......`;
+    state.products.splice(productIndex, 1);
   },
   [ADDING_PRODUCT](state) {
     state.message = `Registrying new Product  ......`;
-    state.messageForProducts = false;
-    state.messageForAdminProducts = true;
-    state.messageForAdminProdCat = false;
-    state.messageForProductCategory = false;
+    state.messageRecipient = 'AdminProducts';
   },
 };
 

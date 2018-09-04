@@ -14,5 +14,6 @@ appsettings.json
 
 
 wwwroot/dist/
+wwwroot/lib/
 
 obj/

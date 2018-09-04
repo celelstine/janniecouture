@@ -14,11 +14,9 @@ const state = {
   userName: null,
   domainUrl: 'http://localhost:5001',
   jwt: null,
+  messageRecipient: null,
   message: '',
-  messageForLogin: null,
-  messageForSignup: null,
   userCategory: null,
-  messageForConfirmPassword: null,
   roles: [],
 };
 
@@ -72,7 +70,7 @@ const actions = {
       .then(response => {
         commit(DONE, null, { root: true });
         commit(MESSAGE, {
-            messagefor: 'signup',
+            recipient: 'signup',
             message: 'You have successfully signup, please check your mail and verifiy your account' 
         })
       })
@@ -105,7 +103,7 @@ const mutations = {
     // state.userCategory = userCategory;
     // clear former message
     state.message = '';
-    state.messageForLogin = null;
+    state.messageRecipient = null;
     state.fromSignup = null;
     state.roles = roles;
     // router.push({ path: '/' });
@@ -116,17 +114,15 @@ const mutations = {
     axios.defaults.headers.common.Authorization = jwt;
   },
   [MESSAGE](state, { recipient , message }) {
-    state.messageForLogin = false;
-    state.fromSignup = false;
-    state.messageForConfirmPassword = false;
+    state.fromSignup = false;;
     state.message = message;
     if (recipient === 'login') {
-      state.messageForLogin = true;
+      state.messageRecipient = 'Login';
     } else if (recipient === 'signup') {
-      state.messageForSignup = true;
+      state.messageRecipient = 'Signup';
     }
     else if (recipient === 'confirmPassword') {
-        state.messageForConfirmPassword = true;
+      state.messageRecipient = 'ConfirmPassword';
     }
   },
   [LOGOUT](state) {

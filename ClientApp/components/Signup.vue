@@ -75,7 +75,7 @@ export default {
     computed: {
         ...mapState('auth', {
           message: state => state.message,
-          hasMessage: state => state.messageForSignup,
+          hasMessage: state => (state.messageRecipient == 'Signup'),
         }),
     },
     methods: {

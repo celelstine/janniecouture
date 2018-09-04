@@ -14,7 +14,7 @@ const state = {
   message: '',
   domainUrl: 'http://localhost:5001',
   hasMoreproductDetails: true,
-  messageForProduct: false
+  messageRecipient: null,
 };
 
 // getters
@@ -44,7 +44,7 @@ const mutations = {
   [MESSAGE](state, { message, recipient }) {
     state.message = message;
     if (recipient === 'product'){
-        state.messageForProduct = true;
+        state.messageRecipient = 'Product';
     }
   },
   [FETCHING_PRODUCT](state) {
@@ -56,7 +56,7 @@ const mutations = {
   },
   [FETCHING_PRODUCT_DETAILS](state) {
     state.message = `Fetching Product Category ......`;
-    state.messageForProductCategory = true;
+    state.messageRecipient = 'ProductCategory';
   },
   [FETCH_PRODUCT_DETAILS](state, payload) {
     state.message = null;

@@ -15,7 +15,6 @@ export default {
     },
     methods: {
         gotoDetailPage() {
-            console.log('--->', this.link);
             if (this.link) {
                  this.$router.push({ path: this.link });
             }

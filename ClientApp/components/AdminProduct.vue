@@ -140,7 +140,7 @@ export default {
             this.image_url = null;
             this.name = null;
             this.validInputs= [];
-            this.productCatID = null;
+            this.productID = null;
             this.buttonText = 'Register';
        });
 
@@ -148,7 +148,7 @@ export default {
     computed: {
         ...mapState('productCategory', {
           message: state => state.message,
-          hasMessage: state => state.messageForAdminProducts,
+          hasMessage: state => (state.messageRecipient == 'AdminProducts'),
         }),
         ...mapState({
           productTags: state => state.productTags,
@@ -172,17 +172,24 @@ export default {
                 }
 
                 this.$store.dispatch('productCategory/addProduct', { formData });
-            } else if (this.productCatID) {
+            } else if (this.productID) {
                 formData.append('Name', this.name);
                 formData.append('Tags', this.tags);
+                formData.append('PriceRange', this.PriceRange);
+                formData.append('PriceCurrent', this.PriceCurrent);
+                
+                formData.append('productCategoryID', this.productCategoryID);
                 formData.append('MarketNames', this.marketNames.toString().split(','));
 
                 if (this.image) {
                     formData.append('image', this.image, this.image.name);
                 }
 
-                this.$store.dispatch('productCategory/edit', { prodCatIndex: this.prodCatIndex, productCatID: this.productCatID, formData });
-
+                this.$store.dispatch('productCategory/editProduct', { 
+                       prodCatIndex: this.prodCatIndex, 
+                       productID: this.productID,
+                        formData
+                });
             }
         },
         filesChange(event) {
