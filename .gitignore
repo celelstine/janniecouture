@@ -8,9 +8,9 @@ node_modules/
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
+# *.sln
 bin/
-appsettings.json
+# appsettings.json
 
 
 wwwroot/dist/
