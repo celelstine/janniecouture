@@ -10,7 +10,6 @@ export default context => {
       if (!matchedComponents.length) {
         return reject({ code: 404 });
       }
-      console.log('matchedComponents', matchedComponents);
       Promise.all(matchedComponents.map(Component => {
         if (Component.asyncData) {
           return Component.asyncData({

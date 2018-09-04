@@ -101,15 +101,15 @@ export default {
         const name = this.$route.params.name;
         if (name) {
             this.categoryName = name;
-            this.$store.dispatch('productCategory/getProductsByCatName', { name, lastIndex:0 });
-            this.$store.dispatch('productCategory/getCatByName', { name });
+            this.$store.dispatch('productCategory/getProductsByproductCategoryName', { name, lastIndex:0 });
+            this.$store.dispatch('productCategory/getproductCategoryByName', { name });
         }
     },
     computed: {
         ...mapState('productCategory', {
             products: state => state.products,
             message: state => state.message,
-            hasMessage: state => state.messageForProducts,
+            hasMessage: state => (state.messageRecipient == 'Products'),
             hasMoreproducts: state => state.hasMoreproducts,
             productCategory: state => state.productCategory,
         }),
@@ -128,7 +128,7 @@ export default {
         products(val) {
              if(this.hasMoreproducts) {
                 const lastIndex = this.products.length;
-                this.$store.dispatch('productCategory/getProductsByCatName', { name: this.categoryName, lastIndex});
+                this.$store.dispatch('productCategory/getProductsByproductCategoryName', { name: this.categoryName, lastIndex});
             }
         },
         roles(val) {
@@ -161,9 +161,8 @@ export default {
         deleteProduct(product, index) {
             var r = confirm(`Please Confirm that you want to Delete Product: ${product.name}`);
             if (r == true) {
-                console.log("You pressed OK!", product);
                 this.$store.dispatch(
-                    'product/deleteProduct',
+                    'productCategory/deleteProduct',
                     { productID: product.productID, index}
                 );
             }

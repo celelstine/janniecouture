@@ -27,7 +27,7 @@ export default {
     },
     created() {
         if (!this.productCategories.length) {
-            this.$store.dispatch('productCategory/get', 0);
+            this.$store.dispatch('productCategory/getaddProductCategories', 0);
         }
     }
 }

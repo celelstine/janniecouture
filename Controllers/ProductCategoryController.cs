@@ -57,7 +57,8 @@ namespace jannieCouture.Controllers
 			{
 				ProductCategory productCategory = _appDbContext
 				   .ProductCategory
-				   .Where(pc => pc.Name == name).FirstOrDefault();
+                    .Where(pc => (pc.Name == name) && (pc.status == "active"))
+                    .FirstOrDefault();
 				if (productCategory != null)
 				{
 					int _lastProductIndex = 0;
@@ -75,7 +76,7 @@ namespace jannieCouture.Controllers
 					}
 					List<Product> products = _productRepository
 						.products
-                        .Where(p => p.ProductCategoryID == productCategory.ProductCategoryID)
+                        .Where(p => (p.ProductCategoryID == productCategory.ProductCategoryID) && (p.status == "active"))
 						.Skip(_lastProductIndex)
 						.Take(_size)
 						.ToList();
@@ -98,7 +99,8 @@ namespace jannieCouture.Controllers
             {
                 ProductCategory productCategory = _appDbContext
                     .ProductCategory
-                    .Where(pc => pc.Name == name).FirstOrDefault();
+                    .Where(pc => (pc.Name == name) && (pc.status == "active") )
+                    .FirstOrDefault();
                 if ( productCategory != null)
                 {
                     return Ok(productCategory);
@@ -194,12 +196,13 @@ namespace jannieCouture.Controllers
 					_appDbContext.SaveChanges();
 					return Ok(foundCategory);
 				}
-				return StatusCode(400, "This product category does not exist");
+
+                return StatusCode(400, $"This product category {model.Name} does not exist");
 			}
 			catch (Exception ex)
 			{
 				_logger.LogError($"An error occurred while editing product Category {DateTime.UtcNow}, error_message - {ex}");
-				return StatusCode(500, "Failed to add product Category.");
+                return StatusCode(500, $"Failed to edit product Category {model.Name}.");
 			}
 		}
 
@@ -264,7 +267,7 @@ namespace jannieCouture.Controllers
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError($"An error occurred while editing product Category {DateTime.UtcNow}, error_message - {ex}");
+				_logger.LogError($"An error occurred while deleting product Category {DateTime.UtcNow}, error_message - {ex}");
 				return StatusCode(500, "Failed to add product Category.");
 			}
 		}

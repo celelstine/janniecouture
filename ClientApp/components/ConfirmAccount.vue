@@ -36,7 +36,7 @@ export default {
         ...mapState('auth', {
             userName: state => state.userName,
             message: state => state.message,
-            hasMessage: state => state.messageForConfirmPassword,
+            hasMessage: state => (state.messageRecipient == 'ConfirmPassword'),
 
         }),
     },

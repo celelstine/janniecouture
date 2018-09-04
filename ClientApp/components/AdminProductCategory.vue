@@ -123,7 +123,7 @@ export default {
     computed: {
         ...mapState('productCategory', {
           message: state => state.message,
-          hasMessage: state => state.messageForAdminProdCat,
+          hasMessage: state => (state.messageRecipient == 'AdminProdCat'),
         }),
         ...mapState({
           productTags: state => state.productTags,
@@ -138,15 +138,20 @@ export default {
                   formData.append('Tags', this.tags);
                   formData.append('MarketNames', this.marketNames.toString().split(','));
                   formData.append('image', this.image, this.image.name);
-                  this.$store.dispatch('productCategory/add', { formData });
+                  this.$store.dispatch('productCategory/addProductCategory', { formData });
                 } else if (this.productCatID) {
-                  formData.append('Name', this.name);
-                  formData.append('Tags', this.tags);
-                  formData.append('MarketNames', this.marketNames.toString().split(','));
-                  if (this.image) {
-                    formData.append('image', this.image, this.image.name);
-                  }
-                   this.$store.dispatch('productCategory/edit', { prodCatIndex: this.prodCatIndex, productCatID: this.productCatID, formData });
+                    formData.append('Name', this.name);
+                    formData.append('Tags', this.tags);
+                    formData.append('MarketNames', this.marketNames.toString().split(','));
+                    
+                    if (this.image) {
+                        formData.append('image', this.image, this.image.name);
+                    }
+                    this.$store.dispatch('productCategory/editProductCategory', { 
+                       prodCatIndex: this.prodCatIndex, 
+                       productCatID: this.productCatID,
+                        formData
+                    });
 
                 }
         },

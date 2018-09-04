@@ -223,7 +223,7 @@ export default {
             product: state => state.product,
             productDetails: state => state.productDetails,
             message: state => state.message,
-            hasMessage: state => state.messageForProduct,
+            hasMessage: state => (state.messageRecipient == 'Product'),
             hasMoreproductDetails: state => state.hasMoreproductDetails,
         }),
     },

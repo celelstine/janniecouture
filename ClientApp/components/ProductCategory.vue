@@ -132,7 +132,7 @@ export default {
             productCategories: state => state.productCategories,
             hasMoreproductCategories: state => state.hasMoreproductCategories,
             message: state => state.message,
-            hasMessage: state => state.messageForProductCategory,
+            hasMessage: state => (state.messageRecipient == 'ProductCategory'),
         }),
         ...mapState('auth', {
             roles: state => state.roles
@@ -148,7 +148,7 @@ export default {
         productCategories(val) {
              if(this.hasMoreproductCategories) {
                 const catCount = this.productCategories.length;
-                this.$store.dispatch('productCategory/get', catCount);
+                this.$store.dispatch('productCategory/getaddProductCategories', catCount);
             }
         },
         roles(val) {
@@ -157,7 +157,7 @@ export default {
     },
     created() {
         if (!this.productCategories.length) {
-            // this.$store.dispatch('productCategory/get', 0);
+            // this.$store.dispatch('productCategory/getaddProductCategories', 0);
         }
     },
     methods: {
@@ -173,9 +173,8 @@ export default {
         deleteProdCat(productCategory, index) {
             var r = confirm(`Please Confirm that you want to Delete Product Category: ${productCategory.name}`);
             if (r == true) {
-                console.log("You pressed OK!", productCategory);
                 this.$store.dispatch(
-                    'productCategory/deleteProdCat',
+                    'productCategory/deleteProductCategory',
                     { productCategoryID: productCategory.productCategoryID, index}
                 );
 

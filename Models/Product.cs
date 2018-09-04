@@ -17,6 +17,7 @@ namespace jannieCouture.Models
         public string[] Tags { get; set; }
         public string PriceRange { get; set;  }
         public string PriceCurrent { get; set;  }
+        public string status { get; set; }
         [ForeignKey("ProductCategoryID")]
         public int ProductCategoryID { get; set; }
         //public virtual ProductCategory ProductCategory { get; set; }
