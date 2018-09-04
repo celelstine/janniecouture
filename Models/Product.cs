@@ -20,6 +20,7 @@ namespace jannieCouture.Models
         [ForeignKey("ProductCategoryID")]
         public int ProductCategoryID { get; set; }
         //public virtual ProductCategory ProductCategory { get; set; }
+        public int? MeasurementCategory { get; set; }
         public List<ProductDetail> ProductDetails { get; set; }
     }
 }

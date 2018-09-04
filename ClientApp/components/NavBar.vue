@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <router-link to="/" class="navbar-brand">
-            <i class="fas fa-home">Jannie Couture</i>
+            <img src="/images/logo.png" id="logo" />
         </router-link>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <div class="row">
@@ -91,5 +91,9 @@ export default {
 
     .affix + .container-fluid {
         padding-top: 70px;
+    }
+    #logo {
+        width: 150px;
+        height: 30px
     }
 </style>

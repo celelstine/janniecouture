@@ -36,13 +36,20 @@
                  v-bind:key="productCategory.productCategoryID"
                  >
                 <div class="card-body1">
-                    <img
+                    <AsyncImage
+                                :imageUrl="productCategory.imageUrl"
+                                :name="productCategory.name"
+                                :link="'/productCategory/' + productCategory.name"
+                                >
+
+                    </AsyncImage>
+                    <!--<img
                          
                          v-bind:src="productCategory.imageUrl"
                          alt="Name"
                          title="Explore"
                          class="card-img"
-                         v-on:click="gotoCatDetailPage(productCategory.name)"/>
+                         v-on:click="gotoCatDetailPage(productCategory.name)"/>-->
                 </div>
                 <div class="card-footer py-1 pl-1">
                     <h4 class="product-name pt-0">
@@ -69,13 +76,18 @@
                     <hr />
                     <h6 class="aka">
                         AKA &rArr;
-                        <span v-for="MarketName in productCategory.marketNames">
+                        <span
+                            v-for="MarketName in productCategory.marketNames"
+                            v-bind:key="MarketName"
+                            >
                             {{ MarketName }}
                         </span>
                     </h6>
                     <span
                           class="badge badge-pill badge-dark"
-                          v-for="tag in productCategory.tags">
+                          v-for="tag in productCategory.tags"
+                          v-bind:key="tag"
+                          >
                         {{ tag }}
                     </span>
 
@@ -87,16 +99,33 @@
 </template>
 <script>
 import Product from './Product.vue';
-import AdminProductCategory from './AdminProductCategory.vue';
 import { EventBus } from '../event-bus.js';
-
 import { mapState } from 'vuex';
+
+import AdminProductCategory from './AdminProductCategory.vue';
+import DressImagePlaceholder from './DressImagePlaceholder.vue';
+import NoImageFound from './NoImageFound.vue';
+
+const AsyncImage = () => ({
+  // The component to load (should be a Promise)
+  component: import('./AsyncImage.vue'),
+  // A component to use while the async component is loading
+  loading: DressImagePlaceholder,
+  // A component to use if the load fails
+  error: NoImageFound,
+  // Delay before showing the loading component. Default: 200ms.
+  delay: 0,
+  // The error component will be displayed if a timeout is
+  // provided and exceeded. Default: Infinity.)
+  timeout: 5000
+});
 
 export default {
     name: 'ProductCategory',
     components : {
         Product,
-        AdminProductCategory
+        AdminProductCategory,
+        AsyncImage
     },
     computed: {
         ...mapState('productCategory', {

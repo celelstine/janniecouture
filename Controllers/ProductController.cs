@@ -12,7 +12,6 @@ using Newtonsoft.Json.Linq;
 using jannieCouture.Repositories;
 using jannieCouture.Models;
 using jannieCouture.ViewModels;
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace jannieCouture.Controllers
 {
@@ -41,13 +40,13 @@ namespace jannieCouture.Controllers
 		}
 
 		[HttpGet("{name}")]
-		public IActionResult CategoryByName(string name)
+		public IActionResult ProductByName(string name)
 		{
 			try
 			{
                 Product product = _productRepository
                     .products
-					.Where(pc => pc.Name == name).FirstOrDefault();
+					.Where(p => p.Name == name).FirstOrDefault();
 				if (product != null)
 				{
 					return Ok(product);
@@ -111,41 +110,59 @@ namespace jannieCouture.Controllers
 				return StatusCode(500, "Failed to get products.");
 			}
 		}
-		//	[HttpPost("")]
-		//	public IActionResult AddProductCategory([FromForm] ProductCategoryViewModel model)
-		//	{
 
-		//		try
-		//		{
-            		// check that a product category does not exist with same name
-            		//ProductCategory existingproduct = _productRepository
-            			//.products
-            			//.Where(p => p.Name == model.Name)
-            			//.FirstOrDefault();
-             //   if (existingproduct == null){
-             //       return StatusCode(400, $"A product Category with name; {model.Name} exist already");
-	            //}
-	//			var file = HttpContext.Request.Form.Files[0];
+		[HttpPost("")]
+		public IActionResult Addproduct([FromForm] ProductViewModel model)
+		{
+			try
+			{
+                Product existingProduct = _productRepository
+                    .products
+                    .Where(p => (p.Name == model.Name) && (p.ProductCategoryID == model.ProductCategoryID))
+                    .FirstOrDefault();
+                
+                if (existingProduct != null){
+                    return StatusCode(400, $"A product with name; {existingProduct.Name} exist already in this category");
+                } else {
+                    Product newProduct = new Product();
+                    newProduct.Name = model.Name;
+                    newProduct.ProductCategoryID = model.ProductCategoryID;
+                    newProduct.Tags = model.Tags[0].Split(','); ;
+                    newProduct.PriceCurrent = model.PriceCurrent;
+                    Console.WriteLine("model.MarketNames {0}",  model);
+                    if (model.MarketNames != null) {
+                        newProduct.MarketNames = model.MarketNames[0].Split(',');
+                    }
 
-	//			var result = cloudinary.Upload(new ImageUploadParams()
-	//			{
-	//				File = new FileDescription(file.FileName, file.OpenReadStream()),
-	//				Tags = String.Join(" ", model.Tags)
-	//			});
+                    newProduct.PriceRange = model.PriceRange;
+                    newProduct.MeasurementCategory = model.MeasurementCategory;
 
-	//			ProductCategory newProductCategory = new ProductCategory();
-	//			newProductCategory.Name = model.Name;
-	//			newProductCategory.MarketNames = model.MarketNames;
-	//			newProductCategory.Tags = model.Tags;
-	//			newProductCategory.ImageUrl = result.SecureUri.ToString();
-	//			_productCategoryRepository.AddProductCategory(newProductCategory);
-	//			return Ok(newProductCategory);
-	//		}
-	//		catch (Exception ex)
-	//		{
-	//			_logger.LogError($"An error occurred while adding product Category {DateTime.UtcNow}, error_message - {ex}");
-	//			return StatusCode(500, "Failed to add product Category.");
-	//		}
-	//	}
+					var image = HttpContext.Request.Form.Files[0];
+					if (image != null) {
+    					var CloudinaryResult = cloudinary.Upload(new ImageUploadParams()
+    					{
+    						File = new FileDescription(image.FileName, image.OpenReadStream()),
+    						Tags = String.Join(" ", model.Tags)
+    					});
+                        newProduct.ImageUrl = CloudinaryResult.SecureUri.ToString() ?? null;
+                    } else {
+                        newProduct.ImageUrl = "";
+					}
+					
+
+                    _productRepository.AddProduct(newProduct);
+                    return Ok(newProduct);
+
+                }
+
+			}
+			catch (Exception ex)
+			{
+					_logger.LogError($"An error occurred while adding product  {DateTime.UtcNow}, error_message - {ex}");
+					return StatusCode(500, "Failed to add product.");
+			}
+
+
+		}
 	}
 }

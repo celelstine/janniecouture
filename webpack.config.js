@@ -62,8 +62,9 @@ module.exports = (env) => {
     return [clientBundleConfig, serverBundleConfig];
 }
 **/
-var path = require('path')
-var webpack = require('webpack')
+var path = require('path');
+var webpack = require('webpack');
+
 module.exports = {
   entry: { 'main-client': './ClientApp/app.js' },
   output: {
@@ -89,6 +90,7 @@ module.exports = {
     ]
   },
   plugins: [
+    //"syntax-dynamic-import",
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery"

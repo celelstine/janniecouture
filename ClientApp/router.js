@@ -20,7 +20,11 @@ const router = new VueRouter({
     { path: '/Account/ConfirmEmail', component: ConfirmAccount },
     { path: '/AdminProductCategory', component: AdminProductCategory },
     { path: '/productCategory/:name',  name:'productCategoryDetail', component: ProductCategoryDetail },
-    { path: '/product/:name',  name:'product', component: ProductDetail },
+    { 
+        path: '/product/:name', 
+        name:'product',
+        component: () => import('./components/ProductDetail.vue') 
+    },
     { path: '*', component: Home },
   ]
 });

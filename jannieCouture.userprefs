@@ -1,63 +1,12 @@
 ﻿<Properties StartupConfiguration="{26F78652-1480-4BA3-B580-01DF5C77935A}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/ProductDetailPrice.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ViewModels/ProductViewModel.cs">
     <Files>
-      <File FileName="ClientApp/components/Home.vue" Line="27" Column="28" />
-      <File FileName="ClientApp/vuex/store.js" Line="48" Column="30" />
-      <File FileName="ClientApp/vuex/mutation-types.js" Line="26" Column="46" />
-      <File FileName="ClientApp/vuex/modules/productCategory.js" Line="110" Column="54" />
-      <File FileName="ClientApp/components/ProductCategory.vue" Line="16" Column="6" />
-      <File FileName="ClientApp/components/NavBar.vue" Line="94" Column="6" />
-      <File FileName="ClientApp/client.js" Line="1" Column="1" />
-      <File FileName="ClientApp/app.js" Line="1" Column="1" />
-      <File FileName="ClientApp/components/App.vue" Line="153" Column="24" />
-      <File FileName="Views/Shared/_Layout.cshtml" Line="28" Column="80" />
-      <File FileName="ClientApp/components/AdminProductCategory.vue" Line="228" Column="17" />
-      <File FileName="ClientApp/vuex/modules/auth.js" Line="104" Column="21" />
-      <File FileName="Controllers/AccountController.cs" Line="249" Column="5" />
-      <File FileName="ClientApp/components/Product.vue" Line="21" Column="24" />
-      <File FileName="appsettings.json" Line="8" Column="27" />
-      <File FileName="ClientApp/components/ProductSubMenu.vue" Line="34" Column="10" />
-      <File FileName="ClientApp/vuex/modules/Product.js" Line="64" Column="5" />
-      <File FileName="ClientApp/components/ProductCategoryDetail.vue" Line="26" Column="12" />
-      <File FileName="ClientApp/components/Login.vue" Line="38" Column="16" />
-      <File FileName="ClientApp/vuex/actions.js" Line="23" Column="22" />
-      <File FileName="Controllers/ProductTagController.cs" Line="55" Column="63" />
-      <File FileName="Controllers/ProductCategoryController.cs" Line="129" Column="2" />
-      <File FileName="ViewModels/ProductCategoryViewModel.cs" Line="19" Column="2" />
-      <File FileName="Controllers/AdminProductController.cs" Line="53" Column="9" />
-      <File FileName="Controllers/AgeRangeController.cs" Line="15" Column="9" />
-      <File FileName="Program.cs" Line="26" Column="1" />
-      <File FileName="ClientApp/components/AgeRange.vue" Line="23" Column="10" />
-      <File FileName="ViewModels/ForgotPasswordViewModel.cs" Line="1" Column="1" />
-      <File FileName="ClientApp/components/ProductDetail.vue" Line="18" Column="18" />
-      <File FileName="ClientApp/components/ConfirmAccount.vue" Line="20" Column="17" />
-      <File FileName="ClientApp/components/ProductImage.vue" Line="1" Column="1" />
-      <File FileName="ClientApp/event-bus.js" Line="7" Column="26" />
-      <File FileName="webpack.config.js" Line="93" Column="5" />
-      <File FileName="Controllers/HomeController.cs" Line="1" Column="1" />
-      <File FileName="Repositories/ProductCategoryRepository.cs" Line="25" Column="44" />
-      <File FileName="Repositories/ProductTagRepository.cs" Line="22" Column="26" />
-      <File FileName="Repositories/IUserCategoryRespository.cs" Line="1" Column="1" />
-      <File FileName="Controllers/ProductController.cs" Line="1" Column="1" />
-      <File FileName="Startup.cs" Line="12" Column="31" />
-      <File FileName=".bowerrc" Line="1" Column="1" />
-      <File FileName="bower.json" Line="10" Column="1" />
-      <File FileName="Views/_ViewStart.cshtml" Line="1" Column="1" />
-      <File FileName="wwwroot/css/site.css" Line="1" Column="1" />
-      <File FileName="wwwroot/css/site.min.css" Line="1" Column="1" />
-      <File FileName="Models/ProductCategory.cs" Line="17" Column="42" />
-      <File FileName="Models/Product.cs" Line="22" Column="22" />
-      <File FileName="Models/AppDbContext.cs" Line="29" Column="27" />
-      <File FileName="Migrations/20180710021803_addStatusField.cs" Line="30" Column="43" />
-      <File FileName="Models/CustomerFeedbackResponse.cs" Line="1" Column="1" />
-      <File FileName="Migrations/20180428234914_productUpdate.Designer.cs" Line="1" Column="1" />
-      <File FileName="Models/ApplicationUser.cs" Line="17" Column="1" />
-      <File FileName="Models/ProductDetailPrice.cs" Line="21" Column="1" />
-      <File FileName="Models/ProductDetailPriceHistory.cs" Line="14" Column="8" />
-      <File FileName="Models/AgeRange.cs" Line="1" Column="1" />
-      <File FileName="Models/SupplyPayment.cs" Line="15" Column="9" />
-      <File FileName="Models/UserMeasurement.cs" Line="1" Column="1" />
-      <File FileName="Models/VendorFeedback.cs" Line="1" Column="1" />
+      <File FileName="Controllers/ProductCategoryController.cs" Line="68" Column="22" />
+      <File FileName="Controllers/ProductController.cs" Line="127" Column="30" />
+      <File FileName="ViewModels/ProductCategoryViewModel.cs" Line="11" Column="9" />
+      <File FileName="ViewModels/ProductTagViewModel.cs" Line="2" Column="1" />
+      <File FileName="Models/Product.cs" Line="21" Column="37" />
+      <File FileName="ViewModels/ProductViewModel.cs" Line="9" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -1,9 +1,9 @@
-﻿
-
-import axios from 'axios';
+﻿import axios from 'axios';
 import {
     ADDING_PRODUCT_CATEGORY,
-    ADDED,
+    ADDING_PRODUCT,
+    ADDED_PRODUCT,
+    ADDED_PRODUCT_CATEGORY,
     MESSAGE,
     FETCH_PRODUCT_CATEGORIES,
     FETCHING_PRODUCT_CATEGORIES,
@@ -31,6 +31,7 @@ const state = {
   productCategory: {},
   messageForProductCategory: false,
   messageForProducts: false,
+  messageForAdminProducts: false,
   messageForAdminProdCat: false
 };
 
@@ -43,52 +44,52 @@ const getters = {
 // actions 
 const actions = {
   add({ commit, state }, { formData } ) {
-        commit(ADDING_PRODUCT_CATEGORY, {});
-        commit(LOADING, null, { root: true })
-          axios.post(`${state.domainUrl}/api/ProductCategory`,
-            formData,
-            {
-              headers: {
-                'content-type': 'multipart/form-data',
-              },
-            },
-          )
-            .then(response =>  {
-                commit(DONE, null, { root: true });
-                commit(ADDED, response.data);
-             })
-            .catch((error) => {
-              commit(DONE, null, { root: true })
-              let message = 'An internal error occurred, please try again';
-              if (error.response && error.response.status && error.response.status !== 500) {
-                message = error.response.data;
-              }
-              return commit(MESSAGE, { message, recipient: 'adminProdCat'});
-            });
+    commit(ADDING_PRODUCT_CATEGORY, {});
+    commit(LOADING, null, { root: true })
+    axios.post(`${state.domainUrl}/api/ProductCategory`,
+      formData,
+      {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      },
+    )
+      .then(response =>  {
+          commit(DONE, null, { root: true });
+          commit(ADDED_PRODUCT_CATEGORY, response.data);
+        })
+      .catch((error) => {
+        commit(DONE, null, { root: true })
+        let message = 'An internal error occurred, please try again';
+        if (error.response && error.response.status && error.response.status !== 500) {
+          message = error.response.data;
+        }
+        return commit(MESSAGE, { message, recipient: 'adminProdCat'});
+      });
   },
   edit({ commit, state }, { prodCatIndex, productCatID, formData } ) {
-        commit(EDITING_PRODUCT_CATEGORY, {});
-        commit(LOADING, null, { root: true })
-          axios.put(`${state.domainUrl}/api/ProductCategory/Edit/${productCatID}`,
-            formData,
-            {
-              headers: {
-                'content-type': 'multipart/form-data',
-              },
-            },
-          )
-            .then(response =>  {
-                commit(DONE, null, { root: true });
-                commit(EDITED, { prodCatIndex, productCategory: response.data});
-             })
-            .catch((error) => {
-              commit(DONE, null, { root: true })
-              let message = 'An internal error occurred, please try again';
-              if (error.response && error.response.status && error.response.status !== 500) {
-                message = error.response.data;
-              }
-              return commit(MESSAGE, { message, recipient: 'adminProdCat'});
-            });
+    commit(EDITING_PRODUCT_CATEGORY, {});
+    commit(LOADING, null, { root: true })
+    axios.put(`${state.domainUrl}/api/ProductCategory/Edit/${productCatID}`,
+      formData,
+      {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      },
+    )
+      .then(response =>  {
+          commit(DONE, null, { root: true });
+          commit(EDITED, { prodCatIndex, productCategory: response.data});
+        })
+      .catch((error) => {
+        commit(DONE, null, { root: true })
+        let message = 'An internal error occurred, please try again';
+        if (error.response && error.response.status && error.response.status !== 500) {
+          message = error.response.data;
+        }
+        return commit(MESSAGE, { message, recipient: 'adminProdCat'});
+      });
   },
   get({ commit, state }, lastIndex ) {
     commit(FETCHING_PRODUCT_CATEGORIES);
@@ -124,7 +125,7 @@ const actions = {
         return commit(MESSAGE, { message, recipient: 'productCategory'});
     });
   },
-  getCatByName({ commit, state }, name ) {
+  getCatByName({ commit, state }, {name} ) {
     commit(FETCHING_PRODUCT_CATEGORY);
     commit(LOADING, null, { root: true })
     axios.get(`${state.domainUrl}/api/ProductCategory/${name}`)
@@ -147,7 +148,7 @@ const actions = {
     axios.get(`${state.domainUrl}/api/ProductCategory/${name}/products?lastIndex=${lastIndex}&size=10`)
     .then(response => {
         commit(DONE, null, { root: true })
-        commit(FETCH_PRODUCTS, response.data)
+        commit(FETCH_PRODUCTS, { lastIndex, payload: response.data})
      })
     .catch(error => {
         commit(DONE, null, { root: true })
@@ -158,16 +159,44 @@ const actions = {
         return commit(MESSAGE, { message, recipient: 'products' });
     });
   },
+  addProduct({ commit, state }, { formData } ) {
+    commit(ADDING_PRODUCT, {});
+    axios.post(`${state.domainUrl}/api/Product`,
+      formData,
+      {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      },
+    )
+      .then(response =>  commit(ADDED_PRODUCT, response.data))
+      .catch((error) => {
+        console.log('error', error);
+        let message = 'An internal error occurred, please try again';
+        if (error.response && error.response.status && error.response.status !== 500) {
+          message = error.response.data;
+        }
+        return commit(MESSAGE, { message, recipient: 'adminProd'});
+      });
+  },
 };
 
 // mutations
 const mutations = {
-  [ADDED](state, newProductCategory) {
+  [ADDED_PRODUCT_CATEGORY](state, newProductCategory) {
     state.productCategories.unshift(newProductCategory);
     state.message = `${newProductCategory.name} has been added successfully`;
     state.messageForProducts = false;
     state.messageForAdminProdCat = false;
     state.messageForProductCategory = true;
+  },
+  [ADDED_PRODUCT](state, newProduct) {
+    state.products.unshift(newProduct);
+    state.message = `${newProduct.name} has been added successfully`;
+    state.messageForProducts = false;
+    state.messageForAdminProducts = true;
+    state.messageForAdminProdCat = false;
+    state.messageForProductCategory = false;
   },
   [MESSAGE](state, { message, recipient }) {
     state.message = message;
@@ -177,26 +206,39 @@ const mutations = {
     state.messageForProductCategory = false;
     state.messageForProducts = false;
     state.messageForAdminProdCat = false;
+    state.messageForAdminProducts = false;
 
-    if (recipient === 'productCategory'){
-        state.messageForProductCategory = true;
-    }else if (recipient === 'products'){
+    switch (recipient) {
+      case 'adminProd': 
+        state.messageForAdminProducts =  true;
+        break;
+      case 'products':
         state.messageForProducts = true;
-    } else if (recipient === 'adminProdCat') {
-        state.messageForAdminProdCat = true;
+        break;
+      case 'productCategory':
+        state.messageForProductCategory = true;
+        break;
+      case 'adminProdCat':
+       state.messageForAdminProdCat = true;
+       break;
+      default:
+        break;
     }
+
   },
   [ADDING_PRODUCT_CATEGORY](state) {
     state.message = 'Registrying new Product Category ......';
     state.messageForProducts = false;
     state.messageForAdminProdCat = false;
     state.messageForProductCategory = true;
+    state.messageForProductCategory = false;
   },
   [FETCHING_PRODUCT_CATEGORIES](state) {
     state.message = 'Fetching Product Categories ......';
     state.messageForProducts = false;
     state.messageForAdminProdCat = false;
     state.messageForProductCategory = true;
+    state.messageForProductCategory = false;
   },
   [FETCH_PRODUCT_CATEGORIES](state, payload) {
     state.message = null;
@@ -216,14 +258,16 @@ const mutations = {
     state.messageForProductCategory = false;
     state.messageForAdminProdCat = false;
     state.messageForProducts = true;
+    state.messageForProductCategory = false;
   },
   [FETCHING_PRODUCTS](state) {
     state.messageForProducts = true;
     state.messageForProductCategory = false;
     state.messageForAdminProdCat = false;
+    state.messageForProductCategory = false;
     state.message = `Fetching Products ......`;
   },
-  [FETCH_PRODUCTS](state, payload) {
+  [FETCH_PRODUCTS](state, { lastIndex, payload}) {
     state.message = null;
     state.messageForProducts = false;
     if ( payload.length > 0) {
@@ -231,18 +275,25 @@ const mutations = {
     } else {
         state.hasMoreproducts = false;
     }
-    state.products = [...state.products, ...payload];
+    if (lastIndex === 0) {
+         state.products = payload;
+    } else {
+        state.products = [...state.products, ...payload];
+    }
+
   },
   [EDITING_PRODUCT_CATEGORY](state) {
     state.messageForProducts = false; 
     state.messageForProductCategory = false;
     state.messageForAdminProdCat = true;
+    state.messageForProductCategory = false;
     state.message = `Editing product Category ......`;
   },
   [EDITED](state, { prodCatIndex, productCategory}) {
     state.messageForProducts = false; 
     state.messageForProductCategory = false;
     state.messageForAdminProdCat = true;
+    state.messageForProductCategory = false;
     state.message = `${productCategory.name} has been updated successfully ......`;
     state.productCategories[prodCatIndex] = productCategory;
   },
@@ -252,6 +303,13 @@ const mutations = {
     state.messageForAdminProdCat = false;
     state.message = `${state.productCategories[prodCatIndex].name} has been deleted successfully ......`;
     state.productCategories.splice(prodCatIndex, 1);
+  },
+  [ADDING_PRODUCT](state) {
+    state.message = `Registrying new Product  ......`;
+    state.messageForProducts = false;
+    state.messageForAdminProducts = true;
+    state.messageForAdminProdCat = false;
+    state.messageForProductCategory = false;
   },
 };
 

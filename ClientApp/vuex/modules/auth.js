@@ -19,7 +19,7 @@ const state = {
   messageForSignup: null,
   userCategory: null,
   messageForConfirmPassword: null,
-  roles: null,
+  roles: [],
 };
 
 // getters

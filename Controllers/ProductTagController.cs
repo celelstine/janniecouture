@@ -45,7 +45,7 @@ namespace jannieCouture.Controllers
 
 		[HttpPost("")]
         [AllowAnonymous]
-        public IActionResult IndexAddProductTag([FromBody] ProductTagViewModel model)
+        public IActionResult AddProductTag([FromBody] ProductTagViewModel model)
 		{
             
 			try
