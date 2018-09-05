@@ -1,2 +1,5 @@
 language: csharp
 solution: jannieCouture.sln
+dotnet: 2.0.0
+script:
+ - dotnet restore

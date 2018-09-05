@@ -1,20 +1,9 @@
 ﻿<Properties StartupConfiguration="{26F78652-1480-4BA3-B580-01DF5C77935A}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Migrations/20180710021803_addStatusField.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Shared/_Layout.cshtml">
     <Files>
-      <File FileName="Controllers/ProductCategoryController.cs" Line="102" Column="30" />
-      <File FileName="Controllers/ProductController.cs" Line="106" Column="40" />
-      <File FileName="ViewModels/ProductCategoryViewModel.cs" Line="14" Column="30" />
-      <File FileName="ViewModels/ProductTagViewModel.cs" Line="2" Column="1" />
-      <File FileName="Models/Product.cs" Line="20" Column="43" />
-      <File FileName="ViewModels/ProductViewModel.cs" Line="9" Column="30" />
-      <File FileName=".gitignore" Line="20" Column="1" />
-      <File FileName="Controllers/AdminProductController.cs" Line="1" Column="1" />
-      <File FileName="Models/ProductCategory.cs" Line="17" Column="9" />
-      <File FileName="Models/ProductDeliveryClass.cs" Line="1" Column="1" />
-      <File FileName="Controllers/AgeRangeController.cs" Line="1" Column="1" />
-      <File FileName="Migrations/20180710021803_addStatusField.Designer.cs" Line="16" Column="29" />
-      <File FileName="Migrations/20180710021803_addStatusField.cs" Line="1" Column="1" />
-      <File FileName="Migrations/20180715085751_fixProductDetailPriceRelationship.Designer.cs" Line="1" Column="1" />
+      <File FileName="Views/Shared/_Layout.cshtml" Line="10" Column="5" />
+      <File FileName="Startup.cs" Line="137" Column="38" />
+      <File FileName="wwwroot/manifest.json" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

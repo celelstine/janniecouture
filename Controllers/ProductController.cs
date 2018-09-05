@@ -93,7 +93,7 @@ namespace jannieCouture.Controllers
                 {
 					List<Product> productsByCatID = _productRepository
 						.products
-                        .Where(p => p.ProductCategoryID == _catID)
+                        .Where(p => (p.ProductCategoryID == _catID) && (p.status == "active"))
 						.Skip(_lastProductIndex)
 						.Take(_size)
 						.ToList();
@@ -103,6 +103,7 @@ namespace jannieCouture.Controllers
                 {
 					List<Product> products = _productRepository
                         .products
+						 .Where(p => p.status == "active")
                         .Skip(_lastProductIndex)
                         .Take(_size)
                         .ToList();
@@ -137,6 +138,7 @@ namespace jannieCouture.Controllers
                     newProduct.PriceCurrent = model.PriceCurrent;
                     newProduct.MarketNames = model.MarketNames[0].Split(',');
                     newProduct.PriceRange = model.PriceRange;
+                    newProduct.status = "active";
                     newProduct.MeasurementCategory = model.MeasurementCategory;
 
 					var image = HttpContext.Request.Form.Files[0];

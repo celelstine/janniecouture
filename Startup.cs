@@ -141,6 +141,7 @@ namespace jannieCouture
             services.AddTransient<IUserCategoryRespository, UserCategoryRespository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddMvc();
+			//services.AddProgressiveWebApp();
 			services.AddMemoryCache();
 			services.AddSingleton<IEmailSender, EmailSender>();
 

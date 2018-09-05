@@ -10,7 +10,7 @@ node_modules/
 *.njsproj
 # *.sln
 bin/
-# appsettings.json
+appsettings.json
 
 
 wwwroot/dist/
