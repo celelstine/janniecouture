@@ -1,0 +1,31 @@
+#navbar_searchbox {
+  background-color: #f8f9fa;
+  color: #153466
+}
+.navbar-brand{
+  color: #153466 !important;
+  font-size: x-large;
+  font-style: italic;
+  font-weight: 900
+}
+.username {
+  text-transform: capitalize;
+  text-decoration: underline;
+  color: #153466 !important;
+  cursor: pointer;
+  max-width: 85px;
+  overflow: hidden;
+}
+.affix {
+  top: 0;
+  width: 100%;
+  z-index: 9999 !important;
+}
+
+.affix + .container-fluid {
+  padding-top: 70px;
+}
+#logo {
+  width: 150px;
+  height: 30px
+}

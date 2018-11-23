@@ -1,0 +1,79 @@
+<template>
+  <div>
+    <h4 class="WelcomeNote">
+        {{ categoryName }} Shelve
+    </h4>
+    <h5  v-if="!products.length" class="text-warning"> We have no product on this Shelve</h5>
+    <hr v-else/>
+    <AdminProduct></AdminProduct>
+    <h5 v-if="hasMessage" class="text-warning"> {{message}}</h5>
+    <div class="row">
+      <div class="p-0 flex-fill col-md-2 col-sm-12 mr-md-2 mt-2 card productCategory"
+          title="Create Product"
+          v-on:click="newProduct()"
+          v-if="isAdmin"
+          data-toggle="modal"
+          data-target="#newProduct">
+        <div class="card-body1 newProductCat">
+          <h4>
+            <i class="fas fa-plus"></i> <br /> <br />
+            new Product
+          </h4>
+        </div>
+      </div>
+      <div
+        class="p-0 flex-fill col-md-2 col-sm-12 mr-md-2 mt-2 card"
+        v-for="product in products"
+        v-bind:key="product.productID">
+        <div
+          class="card-body"
+          v-on:click="gotoProductPage(product.name )"
+        >
+          <AsyncImage
+            :imageUrl="product.imageUrl"
+            :name="product.name">
+          </AsyncImage>
+            <!--<img v-bind:src="product.imageUrl" alt="Name" />-->
+        </div>
+      <div class="card-footer row mx-0 pl-0">
+        <h4 class="product-name pt-0">
+          <span class="cat_name">{{ product.name}}</span>
+          <i class="fas fa-edit"
+            v-if="isAdmin"
+            v-on:click="editProduct(product, index)"
+            data-toggle="modal"
+            data-target="#newProduct">
+          </i>
+          &nbsp;
+          <i class="fas fa-trash"
+            v-if="isAdmin"
+            data-placement="top"
+            data-toggle="popover"
+            title="Risky!!!"
+            data-content="This product would be delete and can only be retrived by the database admin"
+            v-on:click="deleteProduct(product, index)">
+          </i>
+        </h4>
+        <hr />
+        <span class="col-8 ml-1 mr-auto productFooter price">
+          &#8358;{{ Number(product.priceCurrent).toLocaleString('en') }} &nbsp;
+          ({{ product.priceRange }})
+        </span>
+        <i class="fas fa-cart-plus col-3 mr-0"
+          title="Add to Cart"
+          v-on:click="addToCart(prodcutID)">
+        </i>
+      </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style src="./index.css" />
+<script src="./index.js" > </script>
+
+<style scoped>
+  .card-body {
+    cursor: pointer;
+  }
+</style>

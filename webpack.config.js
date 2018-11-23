@@ -74,6 +74,17 @@ module.exports = {
   },
   module: {
     rules: [
+      { 
+        test: /\.vue\.html$/, 
+        include: /ClientApp/, 
+        loader: 'vue-loader', 
+        //options: { loaders: { js: 'awesome-typescript-loader?silent=true' } } 
+      },
+      {
+          test: /\.ts$/,
+          include: /ClientApp/, 
+          use: 'ts-loader'
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',

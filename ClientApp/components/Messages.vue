@@ -1,5 +1,0 @@
-﻿<template>
-    <div>
-       <h1> Messages from the client side</h1>
-    </div>
-</template>

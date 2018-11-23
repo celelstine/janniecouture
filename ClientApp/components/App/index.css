@@ -1,0 +1,112 @@
+body {
+  padding-top: 0px;
+  font-family: 'Vollkorn', serif;
+}
+.row {
+  width: 100%;
+  margin: auto;
+}
+.container {
+  padding: 0px;
+}
+.btn-outline-success {
+  background: #153466 !important;
+  color: white;
+  border-color: #153466 !important;
+}
+.btn-outline-success:focus, .btn-outline-success:active{
+  background-color:#153466 !important;
+  color: white !important;
+  border-color: #153466 !important;
+}
+
+.ProductSubMenu {
+  background:  #153466 !important;
+  color: white;
+  width: 100%;
+}
+p {
+  margin-bottom: 1px
+}
+ol, ul, dl {
+  margin-top: 0;
+  margin-bottom: 1px;
+}
+.WelcomeNote{
+  color: #007bff;
+  text-align: center;
+  font-weight: 700;
+  text-transform: Uppercase;
+}
+.jannieExperience{
+  text-align: center;
+  color: #153466;
+  font-weight: 700;
+}
+@media (min-width: 576px) {
+
+  .jumbotron {
+          padding: 2rem 2rem;
+          margin-bottom: 5px;
+  }
+}
+
+@media (min-width: 760px) {
+
+  .col-md-2 {
+      max-width: 15.7666% !important;
+  }
+}
+.price {
+  font-family: 'Kameron', serif;
+}
+
+button {
+  color: white;
+  background : #153466 !important;
+}
+.formHeader {
+  color: #153466 !important;
+  background: inherit
+}
+.card, .card-footer {
+  border-width: 0px;
+}
+.card:hover {
+  border-width: 2px;
+}
+.card-footer {
+  padding-right: 0px;
+  padding-left: 0x;
+  background: inherit;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+.product-name {
+  font-size: 14px;
+  display: inline-flex;
+  padding-left: 2px;
+  font-weight: bolder;
+  FONT-STYLE: italic;
+  text-transform: capitalize;
+}
+.explore-product{
+  font-size: smaller;
+   padding-right: 2px
+}
+a {
+  color: #153466;
+}
+.card-img {
+  border-radius: 0;
+  width: 100%;
+  height: 330px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.fa-trash {
+  color: #808080;
+}
+.hide {
+  display: none;
+}

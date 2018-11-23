@@ -1,0 +1,24 @@
+.badge {
+  font-size: 5%;
+}
+@media (min-width: 760px) {
+  .col-md-3 {
+    max-width: 23.8966% !important;
+  }
+}
+
+table {
+  font-size: 10px
+}
+#product-main-page {
+  display: block;
+}
+.tab-content {
+  font-size: 12px;
+}
+.demoValue {
+    font-size: 14px;
+}
+img {
+  cursor: pointer;
+}

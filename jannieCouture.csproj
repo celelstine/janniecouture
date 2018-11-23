@@ -36,8 +36,11 @@
     <Folder Include="Services\" />
     <Folder Include="ViewModels\" />
     <Folder Include="ClientApp\vuex\modules\" />
+    <Folder Include="ClientApp\components\TrendingProduct\" />
+    <Folder Include="ClientApp\components\ProductCategory\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Repositories\EmptyInterface.cs" />
+    <Compile Remove="ClientApp\components\ProductCategory\ProductCategory.cs" />
   </ItemGroup>
 </Project>

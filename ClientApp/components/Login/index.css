@@ -1,0 +1,13 @@
+.close{
+  color: white;
+}
+.modal-header {
+  color: white;
+  background: #153466
+}
+.modal-content {
+  border: 0px;
+}
+.modal-footer .btn-primary {
+   background: #153466
+}

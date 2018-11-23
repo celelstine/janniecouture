@@ -1,0 +1,13 @@
+footer {
+  background: #e9ecef;
+}
+.footer-copyright{
+  background: #153466;
+  color: white
+}
+.footer-copyright > a {
+  color: white
+}
+.list-unstyled{
+  color: #007bff;
+}
