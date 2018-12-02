@@ -1,0 +1,28 @@
+<template>
+  <div>
+    <img v-bind:src="imageUrl"
+      alt="Dress Image"
+      v-bind:data-zoom-image="imageUrl"
+      v-on:mousemove="zoomIn"
+      v-on:mouseout="zoomOut"
+      id="product-main-page" />
+    <div id="overlay" v-bind:style="style"  v-on:mousemove="zoomIn" v-on:mouseout="zoomOut">
+    </div>
+  </div>
+</template>
+
+<style src="./index.css" />
+<script src="./index.js" > </script>
+
+<style scoped>
+  #overlay {
+    border: 1px solid black;
+    width: 100%;
+    display: inline-block;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 30000;
+    top: 0;
+    left: 308px;
+  }
+</style>

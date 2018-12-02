@@ -1,0 +1,22 @@
+<template>
+  <div class="jumbotron jumbotron-fluid mt-md-4 pt-1 text-center">
+    <div class="container">
+      <h4 v-if="hasMessage" class="text-center text-warning">  {{  message }}</h4>
+      <h3>Welcome to Jannie Couture</h3>
+      <h4>We are confirming your account.</h4>
+      <img src="/images/loader.gif" v-if="!hasMessage"/>
+    </div>
+  </div>
+</template>
+
+<style src="./index.css" />
+<script src="./index.js" > </script>
+
+<style scoped>
+  .jumbotron {
+       background: white !important;
+  }
+  img {
+      max-width: 220px !important;
+  }
+</style>

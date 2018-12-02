@@ -1,0 +1,62 @@
+<template>
+  <div class="row mt-1">
+    <div class="p-0 flex-fill col-md-2 col-sm-12 mr-md-2 mt-2 card productCategory"
+      title="Create Product"
+      v-on:click="newProductSample()"
+      v-if="isAdmin"
+      data-toggle="modal"
+      data-target="#manageProductSample">
+      <div class="card-body1 newProductCat pt-4">
+        <h4>
+          <i class="fas fa-plus"></i> <br /> <br />
+          new Product Sample
+        </h4>
+      </div>
+    </div>
+    <div 
+      class="p-0 card flex-fill mb-2 col-sm-6  col-md-3 mr-md-1"
+      v-for="n in 12">
+      <div class="card-header px-md-1 py-md-1">Cool Dress</div>
+        <div class="card-body">
+          <img
+            v-if="product"
+            v-bind:src="product.imageUrl"
+            v-on:click="setCurrentImg('images/fashion.jpg')"
+            alt="Name" />
+      </div>
+    </div>
+  </div>
+  </template>
+
+  <template>
+  <div class="row mt-1">
+    <div class="p-0 flex-fill col-md-2 col-sm-12 mr-md-2 mt-2 card productCategory"
+          title="Create Product"
+          v-on:click="newProductSample()"
+          v-if="isAdmin"
+          data-toggle="modal"
+          data-target="#manageProductSample">
+        <div class="card-body1 newProductCat pt-4">
+            <h4>
+                <i class="fas fa-plus"></i> <br /> <br />
+                new Product Sample
+            </h4>
+        </div>
+    </div>
+    <div 
+      class="p-0 card flex-fill mb-2 col-sm-6  col-md-3 mr-md-1"
+      v-for="n in 12">
+      <div class="card-header px-md-1 py-md-1">Cool Dress</div>
+        <div class="card-body">
+            <img
+              v-if="product"
+              v-bind:src="product.imageUrl"
+              v-on:click="setCurrentImg('images/fashion.jpg')"
+              alt="Name" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<style src="./index.css" />
+<script src="./index.js" > </script>
