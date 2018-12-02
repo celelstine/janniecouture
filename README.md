@@ -37,16 +37,20 @@ we use airbnb and es6 for the Javascript section and dotnet standard for C# sect
 - [Postgres](https://www.postgresql.org/)
 
 
-## Authors
+
+### Features
+The details of the features can be found [here](FEATURES.md)
+
+### Authors
 
 [* **Okoro celestine**](https://github.com/celelstine)
 
 
-## License
+### License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
+### Acknowledgments
 
 * Hat tip to anyone whose code was used
 * Inspiration
