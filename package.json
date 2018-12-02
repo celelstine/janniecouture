@@ -26,6 +26,7 @@
     "aspnet-prerendering": "^3.0.1",
     "axios": "^0.16.2",
     "lodash": "^4.17.4",
+    "macaddress": "^0.2.9",
     "nprogress": "^0.2.0",
     "serialize-javascript": "^1.5.0",
     "vue": "^2.4.4",
